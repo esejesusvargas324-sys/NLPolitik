@@ -2,8 +2,6 @@
 
 Sistema para análisis automatizado del discurso político en español.
 
-![Logo NLPolitik](app/static/img/LogoNLPolitik.png)
-
 ## Características
 - Preprocesamiento con extracción de oraciones contextuales
 - Embeddings semánticos con SBERT
