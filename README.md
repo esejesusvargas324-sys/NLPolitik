@@ -36,22 +36,3 @@
 
 ---
 
-## Instalación y uso
-
-```bash
-# Clonar repositorio
-git clone https://github.com/TU-USUARIO/nlpolitik.git
-cd nlpolitik
-
-# Crear entorno virtual
-python -m venv my_venv
-source my_venv/bin/activate  # Linux/Mac
-my_venv\Scripts\activate     # Windows
-
-# Instalar dependencias
-pip install -r requirements.txt
-
-# Configurar base de datos (editar config/database.py)
-
-# Ejecutar
-python run.py
