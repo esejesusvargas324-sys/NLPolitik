@@ -1,4 +1,5 @@
 # NLPolitik
+![Logo NLPolitik](app/static/img/LogoNLPolitik.png)
 
 Sistema para análisis automatizado del discurso político en español.
 
