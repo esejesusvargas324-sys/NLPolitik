@@ -1,0 +1,40 @@
+{% extends "index.html" %}
+
+{% block content %}
+<div id="seccion-registro" class="seccion-inicio-sesion">
+  <div class="contenedor-columnas">
+    <div class="columna-izquierda">
+      <div class="icono-sesion">
+        <img src="static/img/configurar_usuario.png">
+      </div>
+      <div class="titulo-sesion">
+        <h2>Constraseña</h2>
+        <p>Edite su contraseña</p>
+      </div>
+    </div>
+    
+    <div class="columna-derecha">
+        <form id="formulario-configurar-contrasena" class="formulario-configurar-contrasena-layout" method="POST" action="{{ url_for('main.actualizar_contrasena') }}">
+          <div class="grupo-formulario">
+            <label for="password">Nueva contraseña</label>
+            <input type="password" id="password"  name="nueva-password" required>
+          </div>
+        
+          <div class="grupo-formulario">
+            <label for="confirm-password">Confirmar contraseña</label>
+            <input type="password" id="confirm-password" name="nueva-confirm-password" required>
+          </div> 
+
+          <button type="submit" class="boton-sesion"><i class="fa-solid fa-pen"></i>Editar Contraseña</button>
+          <div class="enlaces-sesion">
+            <a href="{{ url_for('main.configurarUsuario') }}">Regresar</a>
+          </div>
+        </form>
+    </div>
+  </div>
+</div>
+<div class="fondo-animado" id="fondo-animado"></div>
+<script src="{{ url_for('static', filename='js/configurarUsuario.js') }}"></script>
+<script src="{{ url_for('static', filename='js/notificacion.js') }}"></script>
+<script src="{{ url_for('static', filename='js/inicioSesion.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,570 @@
+{% extends "index.html" %}
+
+{% block content %}
+<!-- Sección encabezado -->
+<section class="seccion-encabezado">
+    <div class="encabezado-contenido-horizontal">
+        <div class="encabezado-icono">
+            <i class="fa-solid fa-circle-nodes"></i>
+        </div>
+
+        <div class="encabezado-separador-horizontal"></div>
+
+        <div class="encabezado-texto">
+            <h1>Agrupamiento</h1>
+            <p>Aquí podrás generar y visualizar agrupamientos para la clasificación.</p>
+        </div>
+    </div>
+</section>
+<div class="agrupamiento-layout">
+    <button id="toggleMenuBtn" class="btn-alternar-menu">
+    <span class="icono">
+        <i class="fas fa-chevron-down icono-toggle"></i>
+    </span>
+    <span class="texto">Menú</span>
+    </button>
+    <div class="menu-configuracion menu-configuracion-grid" id="menuConfiguracion">
+        <div class="seccion-configuracion">
+            <h3>Seleccionar Archivos</h3>
+                <label for="nombre-agrupamiento">Nombre del Agrupamiento:</label>
+                <input type="text" id="nombre-agrupamiento">
+                <label for="archivo-datos">Seleccionar Archivo:</label>
+                <button id="btnMostrarArchivos">
+                    <i class="fas fa-upload"></i> Archivos
+                </button>
+                
+                 <!-- Lista de archivos seleccionados -->
+                <div class="lista-archivos-container">
+                    <div class="cabecera-lista">
+                        <h4>Archivos Seleccionados</h4>
+                        <span id="contador-archivos">(0)</span>
+                    </div>
+                    <div id="listaArchivos" class="lista-archivos">
+                        <div class="archivo-vacio">
+                            <i class="fas fa-folder-open"></i>
+                            <p>No hay archivos seleccionados</p>
+                        </div>
+                    </div>
+                </div>
+
+        </div>
+        <div class="seccion-configuracion">
+            <h3>Preprocesamiento</h3>
+            
+            <div class="proceso-item">
+                <div class="estado-proceso pendiente" data-proceso="minusculas">
+                    <div class="three-body">
+                        <div class="three-body__dot"></div>
+                        <div class="three-body__dot"></div>
+                        <div class="three-body__dot"></div>
+                    </div>
+                </div>
+                <label>Convertir a minúsculas</label>
+            </div>
+            
+            <div class="proceso-item">
+                <div class="estado-proceso pendiente" data-proceso="caracteres-especiales">
+                    <div class="three-body">
+                        <div class="three-body__dot"></div>
+                        <div class="three-body__dot"></div>
+                        <div class="three-body__dot"></div>
+                    </div>
+                </div>
+                <label>Eliminar caracteres especiales</label>
+            </div>
+            
+            <div class="proceso-item">
+                <div class="estado-proceso pendiente" data-proceso="normalizar-espacios">
+                    <div class="three-body">
+                        <div class="three-body__dot"></div>
+                        <div class="three-body__dot"></div>
+                        <div class="three-body__dot"></div>
+                    </div>
+                </div>
+                <label>Normalizar espacios y saltos de línea</label>
+            </div>
+            
+            <div class="proceso-item">
+                <div class="estado-proceso pendiente" data-proceso="conservar-acentos">
+                    <div class="three-body">
+                        <div class="three-body__dot"></div>
+                        <div class="three-body__dot"></div>
+                        <div class="three-body__dot"></div>
+                    </div>
+                </div>
+                <label>Conservar acentos y ñ</label>
+            </div>
+            
+            <div class="proceso-item">
+                <div class="estado-proceso pendiente" data-proceso="extraer-frases">
+                    <div class="three-body">
+                        <div class="three-body__dot"></div>
+                        <div class="three-body__dot"></div>
+                        <div class="three-body__dot"></div>
+                    </div>
+                </div>
+                <label>Extraer frases</label>
+            </div>
+            
+            <button id="btnProcesarTextos">
+                <i class="fas fa-file"></i> Procesar textos
+            </button>
+        </div>
+        <div class="seccion-configuracion">
+            <h3>Modelo de Agrupamiento</h3>
+
+            <label for="metodo-cluster">Método de Clusterización:</label>
+            <select id="metodo-cluster">
+                <option value="kmeans">K-Means</option>
+                <option value="agnes">AGNES</option>
+                <option value="dbscan">DBSCAN</option>
+            </select>
+
+            <label for="modelo-embedding">Modelo de Encrustaciones:</label>
+            <select id="modelo-embedding">
+                <option value="beto">SBERT</option>
+            </select>
+
+            <button id="btnIniciarAgrupamiento">
+                <i class="fas fa-file"></i> Iniciar agrupameinto
+            </button>
+        </div>
+    </div>
+
+    <div class="resultados-agrupamiento">
+        <div class="resultados-agrupamiento-grid">
+            <div class="menu-vistas-resultados">
+                <div id="base">
+                    <ul class="menu-vistas">
+                        <li>
+                        <a href="#" data-target="nlp">
+                            <span class="icono"><i class="fas fa-language"></i></span>
+                            <div>Resultado NLP</div>
+                        </a>
+                        </li>
+                        <li>
+                        <a href="#" data-target="descripccion">
+                            <span class="icono"><i class="fas fa-chart-pie"></i></span>
+                            <div>Descripción General</div>
+                        </a>
+                        </li>
+                        <li>
+                        <a href="#" data-target="informe">
+                            <span class="icono"><i class="fas fa-file-alt"></i></span>
+                            <div>Informe Detallado</div>
+                        </a>
+                        </li>
+                        <li>
+                        <a href="#" data-target="pronostico">
+                            <span class="icono"><i class="fas fa-chart-line"></i></span>
+                            <div>Pronóstico</div>
+                        </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div id="nlp" class="contenido-vistas-resultados">
+                <div id="vista-vacia-nlp" class="vista-estado activo">
+                    <img src="static/img/proceso_nlp.png" alt="Sin resultados" />
+                    <p>No hay resultados disponibles aún. Por favor, procece archivos.</p>
+                </div>
+
+                <div id="vista-contenido-nlp" class="vista-estado">
+                    <div id="contenido-nlp">
+                        <!-- Título y subtítulo -->
+                        <div class="vista-titulo">
+                            <h2>Procesamiento de Lenguaje Natural (NLP)</h2>
+                            <p class="vista-subtitulo">Análisis textual detallado de los documentos procesados</p>
+                        </div>
+                        <div class="nlp-layout">
+                            <div class="nlp-tarjetas">
+                                <div class="tarjeta-dashboard">
+                                    <div class="icono">
+                                        <i class="fas fa-font"></i> <!-- Para "Caracteres procesados" -->
+                                    </div>
+                                    <div class="contenido-tarjeta-dashboard">
+                                        <div class="titulo">Caracteres eliminados</div>
+                                        <div class="valor" id="caracteres-eliminados"></div>
+                                    </div>
+                                </div>
+
+                                <div class="tarjeta-dashboard">
+                                    <div class="icono">
+                                        <i class="fas fa-ban"></i> <!-- Para "Total de stopwords eliminados" -->
+                                    </div>
+                                    <div class="contenido-tarjeta-dashboard">
+                                        <div class="titulo">Longitud promedio de frases</div>
+                                        <div class="valor" id="longitud-frases"></div>
+                                    </div>
+                                </div>
+
+                                <div class="tarjeta-dashboard">
+                                    <div class="icono">
+                                        <i class="fas fa-code-branch"></i> <!-- Para "Total de lemas/Stems" -->
+                                    </div>
+                                    <div class="contenido-tarjeta-dashboard">
+                                        <div class="titulo">Total de frases</div>
+                                        <div class="valor" id="total-frases"></div>
+                                    </div>
+                                </div>
+
+                                <div class="tarjeta-dashboard">
+                                    <div class="icono">
+                                        <i class="fas fa-stopwatch"></i> <!-- Para "Tiempo de procesamiento" -->
+                                    </div>
+                                    <div class="contenido-tarjeta-dashboard">
+                                        <div class="titulo">Tiempo de procesamiento</div>
+                                        <div class="valor" id="tiempo-procesamiento"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="nlp-textareas">
+                                <div class="nlp-texto-completo">
+                                    <label for="texto-completo-textarea">Texto completo procesado:</label>
+                                    <div id="texto-completo-container" class="texto-contenedor" readonly></div>
+                                </div>
+                                <div class="nlp-frases-extraidas">
+                                    <label for="frases-extraidas-textarea">Frases extraídas:</label>
+                                    <div id="frases-extraidas-container" class="frases-contenedor"></div>
+                                </div>
+                            </div>
+                        </div>        
+                    </div>
+                    <div class="decoracion-circulos">
+                        <div class="circulo c1"></div>
+                        <div class="circulo c2"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="descripccion"class="contenido-vistas-resultados">
+                <div id="vista-vacia-descripcion" class="vista-estado activo">
+                    <img src="static/img/descripcion.png" alt="Sin resultados" />
+                    <p>No hay resultados disponibles aún. Por favor, ejecuta un análisis.</p>
+                </div>
+
+                <div id="vista-contenido-descripcion" class="vista-estado">
+                    <div id="contenido-descripcion">
+                        <!-- Título y subtítulo -->
+                        <div class="vista-titulo">
+                            <h2>Descripción general del proceso de agrupamiento</h2>
+                            <p class="vista-subtitulo">Resumen analítico y visual de los documentos procesados y sus agrupaciones</p>
+                            <button id="btnGenerarInforme">
+                                <i class="fas fa-file"></i> Generar informe
+                            </button>
+                        </div>
+                    
+                        <div class="descripcion-layout">
+                            <!-- Columna izquierda: tarjetas tipo dashboard -->
+                            <div class="descripcion-tarjetas">
+                                <div class="tarjeta-dashboard" id="tarjeta-dashboard-agrupamientos">
+                                    <div class="icono"><i class="fas fa-project-diagram"></i></div>
+                                    <div class="contenido-tarjeta-dashboard">
+                                        <div class="titulo">Agrupamientos</div>
+                                        <div class="valor" id="agrupaciones-agrupacion"></div>
+                                    </div>
+                                </div>
+
+                                <div class="tarjeta-dashboard" id="tarjeta-dashboard-archivos">
+                                    <div class="icono"><i class="fas fa-file-alt"></i></div>
+                                    <div class="contenido-tarjeta-dashboard">
+                                        <div class="titulo">Archivos procesados</div>
+                                        <div class="valor" id="agrupaciones-archivos"></div>
+                                    </div>
+                                </div>
+
+                                <div class="tarjeta-dashboard" id="tarjeta-dashboard-palabras">
+                                    <div class="icono"><i class="fas fa-language"></i></div>
+                                    <div class="contenido-tarjeta-dashboard">
+                                        <div class="titulo">Fraces por archivos</div>
+                                        <div class="valor" id="agrupaciones-palabras"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Columna derecha: gráfico principal -->
+                            <div class="grafico-principal">
+                                <div class="grafico-box">
+                                    <div class="grafico-placeholder" id="grafico-general-descripcion">[Gráfico aquí]</div>
+                                </div>
+                            </div>
+
+                            <!-- Fila inferior: gráfico general -->
+                            <div class="grafico-secundario">
+                                <div class="grafico-box">
+                                    <div class="grafico-placeholder" id="grafico-secundario-descripcion">[Gráfico aquí]</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="decoracion-circulos">
+                            <div class="circulo c1"></div>
+                            <div class="circulo c2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="informe" class="contenido-vistas-resultados">
+                <div id="vista-vacia-informe" class="vista-estado activo">
+                    <img src="static/img/informe.png" alt="Sin resultados" />
+                    <p>No hay resultados disponibles aún. Por favor, ejecuta un análisis.</p>
+                </div>
+
+                <div id="vista-contenido-informe" class="vista-estado">
+                    <div id="contenido-informe">
+                        <!-- Título y subtítulo -->
+                        <div class="vista-titulo">
+                            <h2>Informe detallado de la agrupación</h2>
+                            <p class="vista--subtitulo">
+                                Visualiza y analiza en profundidad las características, distribución y contenido de las agrupaciones.
+                            </p>
+                            <button id="btnGenerarPronostico">
+                                <i class="fas fa-file"></i> Generar Pronostico
+                            </button>
+                        </div>
+                        <!-- Encabezado: Select agrupaciones -->
+                        <div class="informe-select-agrupaciones" id="select-informe">
+                            <label for="select-agrupacion">Seleccionar agrupación:</label>
+                            <select id="select-agrupacion">
+                            <option value="agrupacion1">Agrupación 1</option>
+                            <option value="agrupacion2">Agrupación 2</option>
+                            <!-- más opciones -->
+                            </select>
+                        </div>
+
+                        <!-- Sección principal con dos columnas -->
+                        <div class="informe-layout">
+                            <!-- Columna izquierda: tarjetas -->
+                            <div class="columna-izquierda">
+                                <div class="tarjeta-dashboard-porcentaje" id="tarjeta-dashboard-porcentaje-informe">
+                                    <div class="contenido">
+                                        <div class="titulo">Ocupación del vocabulario</div>
+                                        <div class="grafico-contenedor">
+                                            <div class="grafico-dona" id="grafico-porcentaje-cluster"></div>
+                                            <div class="detalles">
+                                                <div class="estadisticas">
+                                                    <div class="estadistica">
+                                                        <span class="valor">${porcentaje}%</span>
+                                                        <span class="etiqueta">Usado</span>
+                                                    </div>
+                                                    <div class="estadistica">
+                                                        <span class="valor">${100-porcentaje}%</span>
+                                                        <span class="etiqueta">Libre</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tarjeta-dashboard" id="tarjeta-dashboard-archivos-informe">
+                                    <div class="icono">
+                                        <i class="fas fa-folder-open"></i> <!-- Archivos -->
+                                    </div>
+                                    <div class="contenido-tarjeta-dashboard">
+                                        <div class="titulo">Archivos</div>
+                                        <div class="valor" id="informe-archivos"></div>
+                                    </div>
+                                </div>
+
+                                <div class="tarjeta-dashboard" id="tarjeta-dashboard-palabras-informe">
+                                    <div class="icono">
+                                        <i class="fas fa-weight-hanging"></i> <!-- Densidad -->
+                                    </div>
+                                    <div class="contenido-tarjeta-dashboard">
+                                        <div class="titulo">Palabras Representativas</div>
+                                        <div class="valor" id="informe-palabras"></div>
+                                    </div>
+                                </div>
+
+            
+                            </div>
+
+                            <!-- Columna derecha: gráfico + tabla -->
+                            <div class="columna-derecha">
+                                <div class="grafico-box">
+                                    <div class="grafico-placeholder" id="grafico-general-informe">[Gráfico aquí]</div>
+                                </div> 
+                                    <div class="tabla-general" id="tabla-palabras-origen-informe">
+                                        <table>
+                                        <thead>
+                                            <tr>
+                                            <th>Palabra</th>
+                                            <th>Archivo de origen</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- filas cargadas dinamicamente-->
+                                        </tbody>
+                                        </table>
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="graficos-inferiores">
+                            <div class="grafico-box">
+                                <div class="grafico-placeholder" id="grafico-secundario-informe">
+                                    <!-- Contenedor principal -->
+                                    <div class="contenedor-temas-economicos">
+                                        <!-- Estado vacío (inicialmente visible) -->
+                                        <div class="estado-temas" id="estado-vacio-temas">
+                                            <div class="icono-estado"><i class="fas fa-chart-line"></i></div>
+                                            <h3>Análisis de Temas Económicos</h3>
+                                            <p>Selecciona un cluster para ver su análisis económico detallado</p>
+                                        </div>
+                                        
+                                        <!-- Estado sin análisis -->
+                                        <div class="estado-temas" id="estado-no-economico">
+                                            <div class="icono-estado warning"><i class="fas fa-exclamation-triangle"></i></div>
+                                            <h3>Sin Contenido Económico</h3>
+                                            <p>Este cluster no contiene temas económicos predominantes</p>
+                                        </div>
+                                        
+                                        <!-- Análisis económico COMPLETO -->
+                                        <div class="contenedor-analisis-economico" id="contenedor-analisis-economico">
+                                            <!-- Encabezado -->
+                                            <div class="encabezado-analisis">
+                                                <h3><i class="fas fa-chart-pie"></i> <span id="titulo-tema-economico">Análisis Económico</span></h3>
+                                                <div class="badge-orientacion" id="badge-orientacion"></div>
+                                            </div>
+                                            
+                                            <!-- CONTENEDOR DE 2 COLUMNAS -->
+                                            <div class="contenedor-dos-columnas">
+                                                <!-- Columna izquierda: GRÁFICO Stacked Horizontal Bar -->
+                                                <div class="columna-izquierda">
+                                                    <div class="seccion-grafico-patrones">
+                                                        <h4><i class="fas fa-chart-bar"></i> Patrones por Ideología</h4>
+                                                        <div class="contenedor-grafico" id="contenedor-grafico-patrones"></div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <!-- Columna derecha: Palabras clave y Frases -->
+                                                <div class="columna-derecha">
+                                                    <div class="contenedor-contenido-derecho">
+                                                        <!-- Palabras Clave -->
+                                                        <div class="seccion-palabras-clave">
+                                                            <h4><i class="fas fa-key"></i> Palabras Clave</h4>
+                                                            <div class="contenedor-palabras" id="contenedor-palabras-clave"></div>
+                                                        </div>
+                                                        
+                                                        <!-- Frases Asociadas -->
+                                                        <div class="seccion-frases">
+                                                            <h4><i class="fas fa-comments"></i> Frases Asociadas</h4>
+                                                            <div class="contenedor-frases" id="contenedor-frases"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="decoracion-circulos">
+                        <div class="circulo c1"></div>
+                        <div class="circulo c2"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="pronostico"class="contenido-vistas-resultados">
+                <div id="vista-vacia-pronostico" class="vista-estado activo">
+                    <img src="static/img/pronostico.png" alt="Sin resultados" />
+                    <p>No hay resultados disponibles aún. Por favor, ejecuta un análisis.</p>
+                </div>
+
+                <div id="vista-contenido-pronostico" class="vista-estado">
+                    <div id="contenido-pronostico">  
+                        <!-- Título y subtítulo -->
+                        <div class="vista-titulo">
+                            <h2>Pronóstico de distribución ideológica</h2>
+                            <p class="vista-subtitulo">
+                                Visualiza la proporción y el comportamiento del vocabulario procesado a través de las agrupaciones generadas.
+                            </p>
+                        </div>
+                        
+                        <!-- Contenedor de acciones superiores -->
+                        <div class="pronostico-acciones">
+                            <div class="botones-superiores">
+                                <button  id="btnGuardarAgrupamiento">
+                                    <i class="fas fa-save"></i> Guardar
+                                </button>
+                                 <button id="btnBorrarAgrupamiento">
+                                    <i class="fa-solid fa-trash"></i> Borrar
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Zona de pronóstico visual (porcentaje y nube) -->
+                        <div class="pronostico-visual">
+                            <div class="pronostico-porcentajes">
+                                <div class="porcentaje-box izquierda">
+                                    <div class="porcentaje-contenido">
+                                        <div class="porcentaje-icono">
+                                            <i class="fas fa-hand-point-left"></i>
+                                        </div>
+                                        <div class="porcentaje-valor">12%</div>
+                                        <div class="porcentaje-label">Izquierda</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="nube-palabras">
+                                    <div class="nube-contenido">
+                                        <div class="nube-icono">
+                                            <i class="fa-solid fa-circle-question"></i>
+                                        </div>
+                                        <div class="porcentaje-valor">16%</div>
+                                        <div class="porcentaje-label">Neutral/Desconocido</div>
+                                    </div>
+                                </div>
+
+                                <div class="porcentaje-box derecha">
+                                    <div class="porcentaje-contenido">
+                                        <div class="porcentaje-icono">
+                                            <i class="fas fa-hand-point-right"></i>
+                                        </div>
+                                        <div class="porcentaje-valor">22%</div>
+                                        <div class="porcentaje-label">Derecha</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Barra de progreso visual -->
+                            <div class="barra-distribucion">
+                                <div class="barra-progreso izquierda" style="width: 62%"></div>
+                                <div class="barra-progreso neutral" style="width: 16%"></div>
+                                <div class="barra-progreso derecha" style="width: 22%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Área de salida del sistema -->
+                        <div class="pronostico-output">
+                            <div class="output-header">
+                                <label for="salida-agrupamiento">Interpretación del análisis:</label>
+                            </div>
+                            <textarea id="salida-agrupamiento" readonly>
+                              
+                            </textarea>
+                        </div>  
+
+                        <div class="decoracion-circulos">
+                            <div class="circulo c1"></div>
+                            <div class="circulo c2"></div>
+                            <div class="circulo c3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/agrupamiento.js') }}"></script>
+<script src="{{ url_for('static', filename='js/ventanaEmergente.js') }}"></script>
+<script src="{{ url_for('static', filename='js/temaAGRUPAEcharts.js') }}"></script>
+<script src="{{ url_for('static', filename='js/graficos.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sessionStorage.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts-gl@2.0.9/dist/echarts-gl.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts-wordcloud@2.0.0/dist/echarts-wordcloud.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts-extension-data-tool@latest/dist/dataTool.min.js"></script>
+{% endblock %}

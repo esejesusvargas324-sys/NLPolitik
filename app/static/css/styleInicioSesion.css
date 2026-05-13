@@ -1,0 +1,473 @@
+.seccion-inicio-sesion {
+  position: fixed; /* Cambiado a fixed para centrado vertical */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centrado perfecto */
+  margin: 0; /* Eliminamos el margin anterior */
+  width: min(600px, 90vw);
+  height: min(450px, 90vw);
+  max-height: 90vh; /* Altura máxima */
+  background-color: #c9e2f5;
+  border-radius: 8px;
+  padding: min(30px, 4vw);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  box-sizing: border-box;
+  overflow: hidden;
+  gap: 5px;
+}
+
+#seccion-registro {
+   width: min(900px, 90vw);
+}
+
+.seccion-inicio-sesion:hover {
+  /* Elevación suave */
+  transform: translate(-50%, -50%) translateY(-5px);
+  
+  /* Sombras más pronunciadas */
+  box-shadow: 
+    0 8px 40px rgba(0, 0, 0, 0.25),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+  
+  /* Efecto de vidrio esmerilado */
+  backdrop-filter: blur(4px);
+  
+  /* Iluminación del borde */
+  border: 1px solid rgba(43, 75, 107, 0.4);
+  
+  /* Reflejo sutil */
+  background-image: 
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.05) 0%,
+      rgba(255, 255, 255, 0) 50%
+    );
+}
+
+
+
+.seccion-inicio-sesion:hover::before {
+  opacity: 30%;
+}
+
+
+.seccion-inicio-sesion:hover::after {
+  opacity: 30%;;
+}
+
+/* Contenedor de dos columnas */
+.contenedor-columnas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.columna-izquierda-f{
+  flex: 1;
+  min-width: 250px;
+}
+
+.columna-derecha-f{
+  flex: 1;
+  min-width: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Elementos decorativos - Simplificados */
+.seccion-inicio-sesion::before,
+.seccion-inicio-sesion::after {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: rgba(43, 107, 100, 0.12);
+  z-index: -1;
+}
+
+.seccion-inicio-sesion::before {
+  top: -30px;
+  right: -30px;
+}
+
+.seccion-inicio-sesion::after {
+  bottom: -30px;
+  left: -30px;
+}
+
+/* Icono principal */
+.icono-sesion {
+  text-align: center;
+  margin-top: 50px;
+  position:static;
+}
+
+/* Estilo para la imagen */
+.icono-sesion img {
+  width: 200px;
+  height: 200px;
+  object-fit: contain; /* Asegura que la imagen se vea completa */
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+
+
+/* Formulario */
+.formulario-sesion {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/*Formulario registro*/
+.formulario-registro-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dos columnas de igual ancho */
+  gap: 10px; /* Espaciado más compacto entre elementos */
+  align-items: start;
+  width: 400px;
+}
+
+/*Formulario configuracion usuario*/
+.formulario-configurar-usuario-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dos columnas de igual ancho */
+  gap: 10px; /* Espaciado más compacto entre elementos */
+  align-items: start;
+  width: 400px;
+}
+
+/*Formulario configuracion usuario*/
+.formulario-configurar-contrasena-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dos columnas de igual ancho */
+  gap: 10px; /* Espaciado más compacto entre elementos */
+  align-items: start;
+  width: 400px;
+}
+
+/* Cada grupo de formulario */
+.grupo-formulario-registro {
+  display: flex;
+  flex-direction: column;
+  gap: 5px; /* Espaciado reducido entre label e input */
+}
+
+
+/* Elementos que deben ocupar ambas columnas */
+.boton-registro,
+.enlaces-registro {
+  grid-column: span 2; /* Ocupan las dos columnas */
+}
+
+.grupo-formulario label {
+  font-size: clamp(14px, 3.2vw, 15px);
+  color:  #012846;
+  margin-left: 5px;
+}
+
+.titulo-sesion {
+  margin-top: 5%; /* Reducido para más espacio */
+}
+
+.boton-sesion {
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+/* Enlaces */
+.enlaces-sesion {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  font-size: 13px;
+}
+
+.enlaces-sesion a {
+  color: #012846;
+  text-decoration: none;
+}
+.enlaces-sesion a:hover {
+  color: #012846;
+  text-decoration: underline;
+}
+
+
+/* Elementos decorativos - corculos blobs */
+.seccion-inicio-sesion::before,
+.seccion-inicio-sesion::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background-color:#012846;
+  animation-timing-function: ease-in-out;
+  pointer-events: none;
+  opacity: 60%;
+  z-index: -1;
+}
+
+/* Círculo 1 - Posición más centrada */
+.seccion-inicio-sesion::before {
+  width: min(150px, 30vw);
+  height: min(150px, 30vw);
+  top: 20%;
+  right: -40px;
+  animation: orbita1 12s infinite alternate;
+}
+
+/* Círculo 2 - Posición más centrada */
+.seccion-inicio-sesion::after {
+  width: min(100px, 20vw);
+  height: min(100px, 20vw);
+  bottom: 20%;
+  left: -10px;
+  animation: orbita2 14s infinite alternate-reverse;
+}
+/* ----------------------------------------------------------------------------------------------*/
+
+/* ========== RESPONSIVE PARA TABLETS (768px - 1024px) ========== */
+@media (max-width: 1024px) {
+  .seccion-inicio-sesion {
+    width: min(550px, 85vw);
+    height: auto;
+    min-height: 400px;
+    padding: 25px;
+  }
+
+  .contenedor-columnas {
+    gap: 20px;
+  }
+
+  .icono-sesion {
+    margin-top: 30px;
+  }
+
+  .icono-sesion img {
+    width: 180px;
+    height: 180px;
+  }
+
+  .titulo-sesion {
+    margin-top: 15px;
+  }
+
+  .formulario-sesion {
+    gap: 15px;
+  }
+
+  .enlaces-sesion {
+    margin-top: 15px;
+  }
+}
+
+/* ========== RESPONSIVE PARA CELULARES (hasta 767px) ========== */
+@media (max-width: 767px) {
+  .seccion-inicio-sesion {
+    width: 90vw;
+    height: auto;
+    min-height: auto;
+    padding: 20px;
+    transform: translate(-50%, -50%) scale(0.98);
+  }
+
+  .seccion-inicio-sesion:hover {
+    transform: translate(-50%, -50%) scale(0.98) translateY(-5px);
+  }
+
+  .contenedor-columnas {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .columna-izquierda, 
+  .columna-derecha {
+    min-width: 100%;
+  }
+
+  .icono-sesion {
+    margin-top: 10px;
+    margin-bottom: 15px;
+  }
+
+  .icono-sesion img {
+    width: 150px;
+    height: 150px;
+  }
+
+  .titulo-sesion {
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .titulo-sesion h2 {
+    font-size: 1.5rem;
+  }
+
+  .titulo-sesion p {
+    font-size: 0.9rem;
+  }
+
+  .formulario-sesion {
+    gap: 15px;
+  }
+
+  .grupo-formulario label {
+    font-size: 14px;
+  }
+
+  .boton-sesion {
+    padding: 10px;
+    margin-top: 5px;
+  }
+
+  .enlaces-sesion {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 5px;
+  }
+
+  .enlaces-sesion a {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Ajuste de elementos decorativos */
+  .seccion-inicio-sesion::before,
+  .seccion-inicio-sesion::after {
+    opacity: 30%;
+  }
+
+  .seccion-inicio-sesion::before {
+    right: -50px;
+    top: 15%;
+    width: min(120px, 25vw);
+    height: min(120px, 25vw);
+  }
+
+  .seccion-inicio-sesion::after {
+    left: -40px;
+    bottom: 15%;
+    width: min(80px, 20vw);
+    height: min(80px, 20vw);
+  }
+}
+
+/* ========== PEQUEÑOS CELULARES (hasta 480px) ========== */
+@media (max-width: 480px) {
+  .seccion-inicio-sesion {
+    padding: 15px;
+  }
+
+  .icono-sesion img {
+    width: 130px;
+    height: 130px;
+  }
+
+  .titulo-sesion h2 {
+    font-size: 1.3rem;
+  }
+
+  .titulo-sesion p {
+    font-size: 0.8rem;
+  }
+
+  .formulario-sesion {
+    gap: 12px;
+  }
+
+  .grupo-formulario input {
+    padding: 10px;
+  }
+
+  .enlaces-sesion {
+    font-size: 12px;
+  }
+}
+/* ----------------------------------------------------------------------------------------------*/
+.fondo-animado {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: -1;
+    opacity: 50%;
+}
+
+.circulo {
+    position: absolute;
+    border-radius: 50%;
+    backface-visibility: hidden;
+    transition: transform 0.5s ease-out, left 0.5s ease, top 0.5s ease;
+}
+
+.conexion {
+    position: absolute;
+    height: 1px;
+    transform-origin: 0 50%;
+    z-index: -1;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+}
+
+.destacado {
+    filter: brightness(1.5);
+    box-shadow: 0 0 20px currentColor;
+    transform: scale(1.2);
+}
+
+@keyframes destello {
+    0% { opacity: 0.3; }
+    50% { opacity: 0.7; }
+    100% { opacity: 0.3; }
+}
+
+/* Media queries para responsividad */
+@media (max-width: 1200px) {
+    .circulo {
+        transition: transform 0.4s ease-out, left 0.4s ease, top 0.4s ease;
+    }
+    
+    .conexion {
+        height: 0.9px;
+    }
+}
+
+@media (max-width: 768px) {
+    .circulo {
+        transition: transform 0.3s ease-out, left 0.3s ease, top 0.3s ease;
+    }
+    
+    .conexion {
+        height: 0.8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .circulo {
+        transition: transform 0.2s ease-out, left 0.2s ease, top 0.2s ease;
+    }
+    
+    .conexion {
+        height: 0.6px;
+    }
+    
+    .destacado {
+        transform: scale(1.1);
+        box-shadow: 0 0 15px currentColor;
+    }
+}
+
+
+

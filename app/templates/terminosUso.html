@@ -1,0 +1,107 @@
+{% extends "index.html" %}
+
+{% block content %}
+<!--Seccion ecncabezado-->
+<div class="terminos-uso-layout">
+    <section class="seccion-hero-terminos">
+            <div class="contenido-hero-terminos">
+                <h1>Términos de Uso de NLPolitik</h1>
+                <p>Conoce los términos y condiciones que rigen el uso de nuestra plataforma de análisis político.</p>
+            </div>
+            <div class="imagen-hero-terminos">
+                <img src="static/img/TerminosUsoNLPolitik.png" alt="Logo NLPolitik - Sistema de posicionamiento político" class="logo-agrupa">
+            </div>
+    </section>
+   
+    <div class="terminos-container">
+        <h1 class="terminos-titulo">Términos y Condiciones de Uso</h1>
+        
+        <div class="seccion-termino">
+            <h2><i class="fas fa-file-contract"></i> 1. Aceptación de los Términos</h2>
+            <p>Al acceder y utilizar el sistema NLPolitik, usted acepta cumplir con estos términos de servicio, todas las leyes y regulaciones aplicables, y acepta que es responsable del cumplimiento de las leyes locales aplicables.</p>
+        </div>
+        
+        <div class="seccion-termino">
+            <h2><i class="fas fa-user-check"></i> 2. Uso Permitido</h2>
+            <p>NLPolitik está destinado para el análisis de opiniones políticas con fines educativos, de investigación y personales. Se le concede una licencia limitada, no exclusiva e intransferible para utilizar nuestro servicio de acuerdo con estos términos.</p>
+            <p>Usted acepta utilizar el servicio sólo para fines legales y de manera que no infrinja los derechos de nadie más ni restrinja o inhiba el uso y disfrute del servicio por parte de cualquier otra persona.</p>
+        </div>
+        
+        <div class="seccion-termino">
+            <h2><i class="fas fa-ban"></i> 3. Restricciones de Uso</h2>
+            <p>No está permitido:</p>
+            <ul>
+                <li>Utilizar NLPolitik para actividades ilegales o no autorizadas</li>
+                <li>Modificar, copiar o crear obras derivadas basadas en NLPolitik</li>
+                <li>Realizar ingeniería inversa o descompilar cualquier parte de nuestro servicio</li>
+                <li>Utilizar robots, spiders o otros dispositivos automatizados para acceder al servicio</li>
+                <li>Recopilar datos de otros usuarios con fines comerciales</li>
+            </ul>
+        </div>
+        
+        <div class="seccion-termino">
+            <h2><i class="fas fa-database"></i> 4. Propiedad Intelectual</h2>
+            <p>Todo el contenido, funcionalidades y características de NLPolitik, incluidos todos los software, texto, visualizaciones y gráficos son propiedad de NLPolitik y están protegidos por leyes de derechos de autor, marcas registradas y otras leyes de propiedad intelectual.</p>
+        </div>
+        
+        <div class="seccion-termino">
+            <h2><i class="fas fa-shield-alt"></i> 5. Privacidad y Datos</h2>
+            <p>Su privacidad es importante para nosotros. Nuestra Política de Privacidad explica cómo recopilamos, utilizamos y protegemos su información personal. Al utilizar NLPolitik, usted acepta las prácticas de datos descritas en nuestra Política de Privacidad.</p>
+        </div>
+        
+        <div class="seccion-termino">
+            <h2><i class="fas fa-exclamation-triangle"></i> 6. Limitación de Responsabilidad</h2>
+            <p>NLPolitik se proporciona "tal cual" y "según disponibilidad". No garantizamos que el servicio sea ininterrumpido, oportuno, seguro o libre de errores.</p>
+            <p>Los resultados del análisis político proporcionados por NLPolitik tienen fines informativos y educativos solamente y no deben considerarse como asesoramiento político profesional.</p>
+        </div>
+        
+        <div class="seccion-termino">
+            <h2><i class="fas fa-gavel"></i> 7. Modificaciones de los Términos</h2>
+            <p>Nos reservamos el derecho, a nuestra sola discreción, de modificar o reemplazar estos Términos en cualquier momento. Si una revisión es importante, trataremos de proporcionar un aviso con al menos 30 días de antelación antes de que entren en vigor los nuevos términos.</p>
+        </div>
+        
+        <div class="seccion-termino">
+            <h2><i class="fas fa-balance-scale"></i> 8. Ley Aplicable</h2>
+            <p>Estos Términos se regirán e interpretarán de acuerdo con las leyes del país donde opera NLPolitik, sin regardo a sus disposiciones sobre conflictos de leyes.</p>
+        </div>
+        
+        <div class="fecha-actualizacion">
+            <p>Última actualización: Mayo, 2025</p>
+        </div>
+    </div>
+   
+    <footer class="pie-pagina">
+        <div class="contenido-pie">
+            <div class="columna-pie">
+                <h3>NLPolitik</h3>
+                <p>Sistema de posicionamiento político basado en análisis de opiniones mediante técnicas avanzadas de NLP y machine learning.</p>
+                <div class="enlaces-sociales">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="columna-pie">
+                <h3>Enlaces</h3>
+                <ul>
+                    <li><a href="{{ url_for('main.home') }}">Inicio</a></li>
+                    
+                </ul>
+            </div>
+            <div class="columna-pie">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="{{ url_for('main.terminosUso') }}">Términos de uso</a></li>
+                    <li><a href="{{ url_for('main.politicaPrivacidad') }}">Política de privacidad</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="derechos-autor">
+            &copy; 2025 NLPolitik - Todos los derechos reservados
+        </div>
+    </footer>
+</div>
+{% endblock %}
+
+

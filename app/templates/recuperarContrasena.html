@@ -1,0 +1,37 @@
+{% extends "index.html" %}
+
+{% block content %}
+<div class="seccion-inicio-sesion">
+  <div class="contenedor-columnas">
+    <div class="columna-izquierda">
+      <div class="icono-sesion">
+        <img src="static/img/restaurar_icono.png">
+      </div>
+      <div class="titulo-sesion">
+        <h2>Recuperar contraseña</h2>
+        <p>Ingresa tu email para generar una nueva contraseña temporal</p>
+      </div>
+    </div>
+    
+    <div class="columna-derecha">
+      <form class="formulario-recuperar" data-url-inicio-sesion="{{ url_for('main.inicioSesion') }}">
+        <div class="grupo-formulario">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="Email de la cuenta" required>
+        </div>
+        
+        <button type="submit" class="boton-recuperar"><i class="fa-solid fa-key"></i>Generar Nueva Contraseña</button>
+        
+        <div class="enlaces-sesion">
+          <a href="{{ url_for('main.inicioSesion') }}">¿Ya tienes cuenta? Inicia sesión</a>
+          <a href="{{ url_for('main.registroUsuario') }}">Registrarse</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="fondo-animado" id="fondo-animado"></div>
+<script src="{{ url_for('static', filename='js/notificacion.js') }}"></script>
+<script src="{{ url_for('static', filename='js/recuperarContrasena.js') }}"></script>
+<script src="{{ url_for('static', filename='js/inicioSesion.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "index.html" %}
+
+{% block content %}
+<div class="seccion-inicio-sesion">
+  <div class="contenedor-columnas">
+    <div class="columna-izquierda-f">
+      <div class="icono-sesion">
+        <img src="static/img/usuario_icono.png">
+      </div>
+      <div class="titulo-sesion">
+        <h2>Iniciar Sesión</h2>
+        <p>Ingresa tus credenciales para acceder a NLPolitik</p>
+      </div>
+    </div>
+    
+    <div class="columna-derecha-f">
+      <form method="POST" action="{{ url_for('main.iniciar_sesion') }}" class="formulario-sesion">
+        <div class="grupo-formulario">
+          <label for="usuario">Usuario</label>
+          <input type="text" id="usuario" name="usuario" placeholder="Nombre de usuario o email" required>
+        </div>
+        
+        <div class="grupo-formulario">
+          <label for="contrasena">Contraseña</label>
+          <input type="password" id="contrasena" name="contrasena" placeholder="Tu contraseña" required>
+        </div>
+        
+        <button type="submit" class="boton-sesion"> <i class="fa-solid fa-right-to-bracket"></i>Ingresar</button>
+        
+        <div class="enlaces-sesion">
+          <a href="{{ url_for('main.recuperarContrasena') }}">¿Olvidaste tu contraseña?</a>
+          <a href="{{ url_for('main.registroUsuario') }}">Registrarse</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="fondo-animado" id="fondo-animado"></div>
+<script src="{{ url_for('static', filename='js/notificacion.js') }}"></script>
+<script src="{{ url_for('static', filename='js/inicioSesion.js') }}"></script>
+{% endblock %}

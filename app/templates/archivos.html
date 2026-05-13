@@ -1,0 +1,263 @@
+{% extends "index.html" %}
+
+{% block content %}
+<!--Seccion ecncabezado-->
+<section class="seccion-encabezado">
+  <div class="encabezado-contenido-horizontal">
+    <div class="encabezado-icono">
+      <i class="fas fa-folder-open"></i>
+    </div>
+
+    <div class="encabezado-separador-horizontal"></div>
+
+    <div class="encabezado-texto">
+      <h1>Archivos</h1>
+      <p>Aquí podrás cargar, visualizar o gestionar archivos para su análisis y clasificación.</p>
+    </div>
+  </div>
+</section>
+
+<div class="archivos-layout">
+  <div class="despliege-archivos">
+    <div class="menu-vistas-archivos">
+      <div id="base">
+        <ul class="menu-vista-archivo">
+          <li>
+            <a href="#" data-target="carga">
+                <span class="icono"><i class="fas fa-upload"></i></span>
+                <div>Cargar archivos</div>
+            </a>
+          </li>
+          <li>
+            <a href="#" data-target="gestion">
+                <span class="icono"><i class="fas fa-cogs"></i></span>
+                <div>Gestionar archivos</div>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div id="carga" class="contenido-vistas-archivos">
+      <!-- Título y subtítulo -->
+      <div class="vista-archivos-titulo">
+        <h2>Importar y preparar archivos</h2>
+        <p class="vista-archivos-subtitulo">Sube tus documentos para iniciar el análisis y agrupamiento textual</p>
+      </div>
+      
+      <div class="carga-loyout">
+        
+        <!-- Botones de selección -->
+        <div class="botones-carga">
+          <!-- Grupo: Opiniones externas -->
+          <div class="grupo-carga">
+            <h3 class="titulo-carga">Opinión externa</h3>
+            <div class="grupo-botones">
+              <button data-formulario="formulario-subir" class="btn-carga activo"><i class="fas fa-upload"></i> Subir archivo local</button>
+              <button data-formulario="formulario-link" class="btn-carga"><i class="fas fa-link"></i> Subir desde enlace</button>
+            </div>
+          </div>
+
+          <!-- Grupo: Opiniones personales -->
+          <div class="grupo-carga">
+            <h3 class="titulo-carga">Opinión personal</h3>
+            <div class="grupo-botones">
+              <button data-formulario="formulario-escribir" class="btn-carga"><i class="fas fa-pen"></i> Escribir opinión</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tarjeta de formulario -->
+        <div class="formulario-tarjeta">
+          <div class="formulario-imagen">
+            <img src="static/img/carga.png" alt="Ilustración carga">
+          </div>
+
+          <div class="formulario-contenido">
+            <!-- Formulario para subir archivo local -->
+            <form id="formulario-subir" class="formulario-archivo" method="POST" enctype="multipart/form-data" action="/crear_opinion_externa">
+
+              <div class="vista-archivos-titulo">
+                <p class="vista-archivos-subtitulo">Sube los archivos de opiniones externas desde tu ordenador.</p>
+              </div>
+              <label for="titulo-subir">Título</label>
+              <input type="text" id="titulo-subir" name="titulo" required >
+
+              <label for="autor-subir">Autor</label>
+              <input type="text" id="autor-subir" name="autor" required >
+
+              <label for="fuente-subir">Fuente</label>
+              <input type="text" id="fuente-subir" name="fuente" required >
+
+              <label for="fecha-subir">Fecha de publicación</label>
+              <input type="date" id="fecha-subir" name="fecha" required >
+
+              <label for="archivo">Seleccionar archivo</label>
+              <input type="file" id="archivo" name="archivo" required >
+
+              <button type="submit" class="btn-guardar"><i class="fas fa-save"></i> Guardar archivo</button>
+            </form>
+
+            <!-- Formulario para subir desde link -->
+
+            <form id="formulario-link" class="formulario-archivo" style="display: none;" method="POST" enctype="multipart/form-data" action="/crear_opinion_externa">
+              <div class="vista-archivos-titulo">
+                <p class="vista-archivos-subtitulo">Sube los archivos de opiniones externas agregando un link.</p>
+              </div>
+              <label for="enlace">Enlace</label>
+              <div class="enlace-carga">
+                <input type="text" id="enlace" name="enlace">
+                <button type="button" class="btn-buscar-link"><i class="fas fa-search"></i>Buscar</button>
+              </div>
+
+              <label for="titulo-link">Título</label>
+              <input type="text" id="titulo-link" name="titulo" required >
+
+              <label for="autor-link">Autor</label>
+              <input type="text" id="autor-link" name="autor" required >
+
+              <label for="fuente-link">Fuente</label>
+              <input type="text" id="fuente-link" name="fuente" required >
+
+              <label for="fecha-link">Fecha de publicación</label>
+              <input type="date" id="fecha-link" name="fecha"required >
+
+              <label for="contenido-link" style="display: none;">Contenido</label>
+              <textarea id="contenido-link" name="contenido" style="display: none;"></textarea>
+
+              <button type="submit" class="btn-guardar"><i class="fas fa-save"></i>Guardar enlace</button>
+            </form>
+
+             <!-- Formulario para escribir opinión -->
+
+            <form id="formulario-escribir" class="formulario-archivo" style="display: none;" method="POST"  enctype="multipart/form-data" action="/crear_opinion_usuario" >
+              <div class="vista-archivos-titulo">
+                <p class="vista-archivos-subtitulo">Escriba, pege, o seleccione los archivos de opiniones personales. </p>
+              </div>
+            
+              <label for="opinion">Opinión</label>
+              <textarea id="opinion" name="opinion" ></textarea>
+
+              <label for="titulo-escribir">Título</label>
+              <input type="text" id="titulo-escribir" name="titulo" required>
+
+              <label for="archivo">Seleccionar archivo</label>
+              <input type="file" id="archivo-opinion" name="archivo">
+
+              <button type="submit" class="btn-guardar"><i class="fas fa-save"></i>Guardar texto</button>
+            </form>
+          </div>
+        </div>
+      </div> 
+    </div>
+
+    <div id="gestion" class="contenido-vistas-archivos">
+      <!-- Título y subtítulo -->
+      <div class="vista-archivos-titulo">
+        <h2>Gestión de archivos procesados</h2>
+        <p class="vista-archivos-subtitulo">Organiza, elimina o edita archivos previamente importados</p>
+      </div>
+      <div class="gestion-loyout"> 
+        <div class="switch-edicion">
+          <label class="switch-toggle">
+            <input type="checkbox" id="edicion-toggle" />
+            <span class="slider"></span>
+            <span class="label-text">Habilitar edición</span>
+          </label>
+        </div>
+
+        <div class="contenedor-tabla">   
+            <div class="tabla-general" id="tabla-archivos-gestion">
+              <table id="tabla-opiniones">
+                <thead>
+                  <tr>
+                    <th>Numero</th>
+                    <th>Origen</th>
+                    <th>Archivo</th>
+                    <th>Fecha publicación</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Se llena dinámicamente vía JS -->
+                </tbody>
+              </table>
+            </div>   
+        </div>
+
+        <div class="formulario-tarjeta">
+          <div class="formulario-imagen">
+            <img src="static/img/gestion.png" alt="Ilustración carga">
+        </div>
+
+        <div class="formulario-contenido">
+          <!-- Formulario para configurar archivos cargado de opiniones externas    -->
+          <form id="formulario-archivo-externo" class="formulario-gestion">
+            <div class="contenido-formulario-gestion">
+              <div class="campo-formulario">
+                <label for="contenido-externo">Contenido</label>
+                <textarea id="contenido-externo" name="opinion"></textarea>
+              </div>
+
+              <div class="campo-formulario">
+                <label for="titulo-subir-externo">Título</label>
+                <input type="text" id="titulo-subir-externo" name="titulo">
+
+                <label for="autor-subir-externo">Autor</label>
+                <input type="text" id="autor-subir-externo" name="autor">
+
+                <label for="fuente-subir-externo">Fuente</label>
+                <input type="text" id="fuente-subir-externo" name="fuente">
+
+                <label for="fecha-subir-externo">Fecha de publicación</label>
+                <input type="date" id="fecha-subir-externo" name="fecha">
+
+                <button type="button" id="btn-guardar-externo"><i class="fas fa-check"></i>Guardar cambios</button>
+                <button type="button" id="btn-eliminar-externo" class="btn-cargar-link"><i class="fas fa-trash"></i>Eliminar archivo</button>
+              </div>
+            </div>
+          </form>
+           <!-- Formulario para configurar archivos cargado de opiniones personales   -->
+          <form id="formulario-archivo-personal" class="formulario-gestion">
+            <div class="contenido-formulario-gestion">
+              <div class="campo-formulario">
+                <label for="contenido-personal">Contenido</label>
+                <textarea id="contenido-personal" name="opinion"></textarea>
+              </div>
+              <div class="campo-formulario">
+                <label for="titulo-subir-personal">Título</label>
+                <input type="text" id="titulo-subir-personal" name="titulo">
+
+                <label for="autor-subir-personal">Autor</label>
+                <input type="text" id="autor-subir-personal" name="autor">
+
+                <label for="fecha-subir-personal">Fecha de publicación</label>
+                <input type="date" id="fecha-subir-personal" name="fecha">
+
+                <button type="button" id="btn-guardar-personal"><i class="fas fa-check"></i>Guardar cambios</button>
+                <button type="button" id="btn-eliminar-personal"><i class="fas fa-trash"></i>Eliminar archivo</button>
+              </div>
+            </div>
+          </form>
+          <!-- Formulario para configurar archivos cargado de opiniones externas    -->
+          <form id="formulario-archivo-vacio" class="formulario-gestion">
+            
+                <div class="contenido-formulario-gestion">
+                  <div class="campo-formulario-vacio">
+                    <img src="static/img/cargar_archivos.png" alt="Sin resultados" />
+                    <p>No hay vista disponible. Por favor, seleccione archivo de la tabla o importe archivos.</p>
+                  </div>
+                </div>
+          </form>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="js/archivos.js"></script>
+<script src="{{ url_for('static', filename='js/archivos.js') }}"></script>
+<script src="{{ url_for('static', filename='js/notificacion.js') }}"></script>
+<script src="{{ url_for('static', filename='js/ventanaEmergente.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sessionStorage.js') }}"></script>
+{% endblock %}
+
+

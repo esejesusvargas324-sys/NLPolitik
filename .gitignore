@@ -1,0 +1,59 @@
+# --- ENTORNOS VIRTUALES ---
+venv/
+my_venv/
+.env/
+.env*/ 
+*.env
+
+# --- ARCHIVOS DE PYTHON ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+
+# --- MODELOS Y EMBEDDINGS ---
+*.bin
+*.pt
+*.pth
+*.h5
+*.model
+*.pickle
+*.pkl
+*.joblib
+
+# --- CORPUS Y DATASETS GRANDES ---
+app/corpus/
+data/
+datasets/
+*.csv
+*.tsv
+*.jsonl
+*.json
+*.xml
+*.txt
+
+# --- ARCHIVOS GRANDES ---
+*.zip
+*.tar
+*.gz
+*.7z
+
+# --- ARCHIVOS DE SALIDA ---
+outputs/
+results/
+checkpoints/
+runs/
+wandb/
+
+# --- JUPYTER ---
+.ipynb_checkpoints/
+
+# --- FRONTEND / STATIC ---
+node_modules/
+dist/
+build/
+
+# --- SISTEMA ---
+.DS_Store
+Thumbs.db

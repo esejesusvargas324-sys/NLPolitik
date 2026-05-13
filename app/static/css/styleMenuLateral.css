@@ -1,0 +1,79 @@
+.menu-lateral {
+  position: fixed;
+  width: 80px;
+  height: calc(100vh - 40px); /* Resta el espacio superior e inferior */
+  background-color:#012846;
+  transition: width 0.3s ease;
+  overflow: hidden;
+  z-index: 100;
+  margin: 20px 0; /* Espacio superior e inferior de 20px */
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center; /* Centra verticalmente el contenido */
+  border-radius: 0px 30px 30px 0px;
+}
+
+.menu-lateral:hover {
+  width: 200px;
+}
+
+.menu-lateral ul {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%; /* Asegura que ocupe todo el ancho */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-lateral ul li {
+  border-bottom: 1px solid#7ebff04f;
+}
+
+.menu-lateral ul li a {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  text-decoration: none;
+  color:#ffffff;
+  padding: 30px 30px;
+  transition: background 0.3s ease;
+}
+
+.menu-lateral ul li a:hover {
+  background-color:#7ebff04f;
+  color: #ffffff;
+}
+
+.menu-lateral ul li a i {
+  font-size: 18px;
+  width: 25px;
+  text-align: center;
+}
+
+.menu-lateral ul li a span {
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.menu-lateral:hover ul li a span {
+  opacity: 1;
+}
+
+.content {
+  margin-left: 60px;
+  padding: 20px;
+  transition: margin-left 0.3s ease;
+}
+
+.menu-lateral:hover ~ .content {
+  margin-left: 200px;
+}
+
+.bottom-item {
+  margin-top: auto;  /* Esto empuja el elemento a la parte inferior */
+  padding-bottom: 0px; /* Espacio extra en la parte inferior */
+}

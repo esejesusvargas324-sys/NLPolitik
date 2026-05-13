@@ -1,0 +1,242 @@
+{% extends "index.html" %}
+
+{% block content %}
+<!-- Sección encabezado -->
+<section class="seccion-encabezado">
+    <div class="encabezado-contenido-horizontal">
+        <div class="encabezado-icono">
+        <i class="fas fa-clock-rotate-left"></i>
+        </div>
+
+        <div class="encabezado-separador-horizontal"></div>
+
+        <div class="encabezado-texto">
+        <h1>Historial</h1>
+        <p>Aquí podrás gestionar y visualizar el historial de tus análisis generados en el pipeline de NLPolitik.</p>
+        </div>
+    </div>
+</section>
+<div class="historial-layout">
+    <div class="tabla-historial">
+        <div class="tabla-hisotrial-grid">
+            <div class="tabla-general" id="tabla-general-historial">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Fecha</th>
+                        <th>Preferencia</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Ejemplo de fila -->
+                        <tr>
+                        
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <div class="resultados-historial">
+        <div class="resultados-historial-grid">
+            <!-- Vista vacía -->
+            <div id="vista-vacia-historial" class="vista-estado-historial activo">
+                <img src="static/img/historial.png" alt="Sin resultados" />
+                <p>No hay resultados disponibles aún. Por favor, seleccione agupación.</p>
+            </div>
+
+            <!-- Vista con contenido -->
+                <div id="vista-contenido-historial" class="vista-estado-historial">
+                    <div class="vista-contenido-layout">
+                        <!-- Header del historial -->
+                        <div class="historial-header">
+                            <div class="historial-titulo">
+                                 <!-- Boton para exportar pdf -->
+                                <button id="btn-exportar-pdf" class="btn-exportar">
+                                    <i class="fas fa-file-pdf"></i>
+                                    Exportar PDF
+                                </button>
+                                <h2 id="historial-nombre">Historial de clasificación política</h2>
+                                <p id="historial-descripcion" class="historial-descripcion">
+                                    Resultados del pipeline de procesamiento de clasificación ideológica y análisis temático de NLPolitik
+                                </p>
+                            </div>
+                            <div class="historial-meta">
+                                <div class="meta-item">
+                                    <i class="fas fa-calendar"></i>
+                                    <span id="historial-fecha">Fecha</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Estadísticas principales -->
+                        <div class="estadisticas-principales">
+                            <div class="estadistica-card">
+                                <div class="estadistica-icono">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                                <div class="estadistica-contenido">
+                                    <h3 id="total-archivos">0</h3>
+                                    <p>Archivos procesados</p>
+                                </div>
+                            </div>
+                            <div class="estadistica-card">
+                                <div class="estadistica-icono">
+                                    <i class="fas fa-quote-right"></i>
+                                </div>
+                                <div class="estadistica-contenido">
+                                    <h3 id="total-frases">0</h3>
+                                    <p>Frases extraídas</p>
+                                </div>
+                            </div>
+                            <div class="estadistica-card">
+                                <div class="estadistica-icono">
+                                    <i class="fas fa-ruler"></i>
+                                </div>
+                                <div class="estadistica-contenido">
+                                    <h3 id="longitud-promedio">0</h3>
+                                    <p>Longitud promedio</p>
+                                </div>
+                            </div>
+                            <div class="estadistica-card">
+                                <div class="estadistica-icono">
+                                    <i class="fas fa-trash"></i>
+                                </div>
+                                <div class="estadistica-contenido">
+                                    <h3 id="caracteres-eliminados">0</h3>
+                                    <p>Caracteres eliminados</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sección de interpretación ideológica -->
+                        <div class="seccion-interpretacion">
+                            <h3><i class="fas fa-chart-pie"></i> Interpretación Ideológica</h3>
+                            <div class="interpretacion-contenido">
+                                <div class="interpretacion-texto" id="interpretacion-texto">
+                                    Cargando interpretación...
+                                </div>
+                                <div class="interpretacion-distribucion" id="interpretacion-distribucion">
+                                    <!-- Distribución se llenará dinámicamente -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Detalles de clustering -->
+                        <div class="seccion-clustering">
+                            <h3><i class="fas fa-project-diagram"></i> Detalles del Clustering</h3>
+                            <div class="clustering-detalles">
+                                <div class="clustering-configuracion">
+                                    <h4>Configuración</h4>
+                                    <div class="config-info" id="config-info"></div>
+                                </div>
+                                <div class="clustering-metricas">
+                                    <h4>Métricas de Calidad</h4>
+                                    <div class="metricas-grid-detalladas" id="metricas-detalladas"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Clusters identificados -->
+                        <div class="seccion-clusters">
+                            <div class="clusters-header">
+                                <h3><i class="fas fa-object-group"></i> Clusters Identificados</h3>
+                                <div class="cluster-selector-container">
+                                    <label for="cluster-selector">Seleccionar:</label>
+                                    <select id="cluster-selector" class="cluster-selector">
+                                        <!-- Las opciones se llenarán dinámicamente -->
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="clusters-grid" id="clusters-grid">
+                                <!-- Solo se mostrará el card del cluster seleccionado -->
+                            </div>
+                            <div class="cluster-navigation" id="cluster-navigation">
+                                <div class="cluster-nav-info">Cluster 1 de X</div>
+                                <div class="cluster-nav-buttons">
+                                    <button class="btn-cluster-nav btn-anterior" onclick="navegarCluster('anterior')" disabled>
+                                        <i class="fas fa-chevron-left"></i> Anterior
+                                    </button>
+                                    <button class="btn-cluster-nav btn-siguiente" onclick="navegarCluster('siguiente')">
+                                        Siguiente <i class="fas fa-chevron-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Análisis gramatical 
+                        <div class="seccion-gramatical">
+                            <h3><i class="fas fa-language"></i> Análisis Gramatical por Cluster</h3>
+                            <div class="gramatical-contenedor" id="gramatical-contenedor">
+                                 Análisis gramatical se llenará dinámicamente 
+                            </div>
+                        </div>
+                        -->
+                        <!-- Frases procesadas -->
+                        <div class="seccion-frases">
+                            <h3><i class="fas fa-comments"></i> Frases Extraídas y Clasificadas</h3>
+                            
+                            <div class="frases-contenedor-historial" id="frases-contenedor-historial">
+                                <!-- Gráfico principal -->
+                 
+                                
+                            </div>
+                            <div class="graficos-navegacion" id="graficos-navegacion">
+                                    <div class="cluster-nav-info">Visualizar por:</div>
+                                        <select id="selector-tipo-grafico" class="cluster-selector" style="padding-top: 5px;">
+                                            <option value="ideologia" selected>Ideología</option>
+                                            <option value="autores">Autores</option>
+                                            <option value="economico"> Patrones Económicos</option>
+                                        </select>
+                                    </div>
+                        </div>
+
+                        <!-- Documentos y Frases clasificadas -->
+                        <div class="seccion-documentos">
+                            <div class="documentos-header">
+                                <h3><i class="fas fa-comments"></i> Documentos y Frases clasificadas</h3>
+                                <div class="documentos-selector-container">
+                                    <label for="documentos-cluster-selector">Seleccionar Cluster:</label>
+                                    <select id="documentos-cluster-selector" class="cluster-selector">
+                                        <option value="">Todos los clusters</option>
+                                        <!-- Las opciones se llenarán dinámicamente -->
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="documentos-contenedor-historial" id="documentos-contenedor-historial">
+                                <!-- Contenido dinámico -->
+                            </div>
+                            <div class="documentos-navegacion" id="documentos-navegacion">
+                                <div class="cluster-nav-info">Cluster 1 de X</div>
+                                <div class="cluster-nav-buttons">
+                                    <button class="btn-cluster-nav btn-anterior-doc" onclick="navegarClusterDocumentos('anterior')" disabled>
+                                        <i class="fas fa-chevron-left"></i> Anterior
+                                    </button>
+                                    <button class="btn-cluster-nav btn-siguiente-doc" onclick="navegarClusterDocumentos('siguiente')">
+                                        Siguiente <i class="fas fa-chevron-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts-gl@2.0.9/dist/echarts-gl.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts-wordcloud@2.0.0/dist/echarts-wordcloud.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts-extension-data-tool@latest/dist/dataTool.min.js"></script>
+<script src="{{ url_for('static', filename='js/historial.js') }}"></script>
+<script src="{{ url_for('static', filename='js/ventanaEmergente.js') }}"></script>
+<script src="{{ url_for('static', filename='js/graficos.js') }}"></script>
+
+{% endblock %}

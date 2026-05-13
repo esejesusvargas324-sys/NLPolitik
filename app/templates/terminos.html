@@ -1,0 +1,110 @@
+{% extends "index.html" %}
+
+{% block content %}
+<section class="seccion-encabezado">
+    <div class="encabezado-contenido-horizontal">
+        <div class="encabezado-icono">
+            <i class="fa-solid fa-map"></i>
+        </div>
+
+        <div class="encabezado-separador-horizontal"></div>
+
+        <div class="encabezado-texto">
+            <h1>Escala RILE - MARPOR</h1>
+            <p>Consulta los términos de referencia de la escala RILE (Right-Left), que fundamenta el análisis politico de NLPolitik.</p>
+        </div>
+    </div>
+</section>
+
+<div class="terminos-layout">
+        <!-- Tarjeta de Introducción MARPOR -->
+        <div class="marpor-intro">
+            <!-- Título y subtítulo -->
+            <div class="vista-archivos-titulo">
+                <h2>Marco Conceptual RILE</h2>
+                <p class="vista-archivos-subtitulo">Sistema de clasificación ideológica del Proyecto MARPOR</p>
+            </div>
+
+            <div class="marpor-intro-tarjeta">
+                <!-- Imagen -->
+                <div class="marpor-intro-imagen">
+                    <img src="static/img/terminos.png" alt="Ilustración Marco RILE">
+                </div>
+
+                <!-- Contenido -->
+                <div class="marpor-intro-contenido">
+                    <div class="intro-texto">
+                        <h3>Proyecto MARPOR - Manifesto Project</h3>
+                        <p>Marco metodológico estandarizado para el análisis comparado de programas de partidos políticos a nivel global. El sistema RILE (Right-Left) ha sido desarrollado y refinado desde 1979, proporcionando una base sólida para el análisis científico del discurso político.</p>
+                        
+                        <div class="intro-datos">
+                            <div class="dato-item">
+                                <i class="fa-solid fa-layer-group"></i>
+                                <span>26 dimensiones temáticas</span>
+                            </div>
+                            <div class="dato-item">
+                                <i class="fa-solid fa-globe-americas"></i>
+                                <span>50+ países analizados</span>
+                            </div>
+                            <div class="dato-item">
+                                <i class="fa-solid fa-scale-balanced"></i>
+                                <span>Equilibrio izquierda-derecha</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="intro-acciones">
+                        <a href="https://manifesto-project.wzb.eu/down/data/2025a/codebooks/codebook_MPDataset_MPDS2025a.pdf" 
+                        target="_blank" 
+                        class="btn-documentacion">
+                            <i class="fa-solid fa-external-link"></i>
+                            Consultar Documentación Oficial
+                        </a>
+                        <p class="texto-ayuda">Codebook completo del sistema RILE - Versión 2025a</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Contenido con tablas de términos ideológicos y panel de significado -->
+        <div class="contenido-terminos">
+            <!-- Panel Izquierdo - Lista de términos RILE -->
+            <div class="panel-lista-rilev2">
+                <div class="panel-cabecera-v2">
+                    <h3>Escala RILE - Categorías</h3>
+                    <div class="filtro-ideologia">
+                        <button class="filtro-btn" data-ideologia="izquierda">
+                            <i class="fas fa-hand-point-left"></i>
+                            Izquierda
+                        </button>
+                        <button class="filtro-btn active" data-ideologia="derecha">
+                            <i class="fas fa-hand-point-right"></i>
+                            Derecha
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="lista-terminos-rilev2" id="lista-terminos-rile">
+                    <!-- Los términos se cargarán dinámicamente -->
+                </div>
+            </div>
+
+            <!-- Panel Derecho - Detalles del término -->
+            <div class="panel-detalles-rilev2">
+                <div class="detalles-cabecera-v2">
+                    <h3>Detalles del Concepto</h3>
+                    <p class="subtitulo-detalles">Selecciona un término para ver su descripción completa</p>
+                </div>
+                
+                <div class="detalles-contenido-v2" id="detalles-contenido">
+                    <div class="estado-inicial-detalles">
+                        <i class="fas fa-search"></i>
+                        <h4>Explora los conceptos RILE</h4>
+                        <p>Selecciona un término de la lista para ver su descripción detallada y contexto metodológico.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/terminos.js') }}"></script>
+{% endblock %}

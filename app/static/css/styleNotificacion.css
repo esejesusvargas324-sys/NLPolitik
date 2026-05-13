@@ -1,0 +1,186 @@
+/* Contenedor principal de notificaciones */
+.contenedor-notificaciones {
+  position: fixed;
+  top: 80px; /* Más abajo que la esquina superior */
+  right: 30px; /* No pegado al borde derecho */
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Estilo base de la notificación - Estado plegado */
+.notificacion {
+  position: relative;
+  width: 300px;
+  max-width: 90vw;
+  background-color: rgb(180, 186, 183);
+  border-radius: 6px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  transform-origin: top right;
+  transform: scaleX(0.2) scaleY(0.2);
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: pointer;
+  max-height: 0;
+  margin-bottom: -15px;
+}
+
+/* Efecto de desplegado - Como mapa que se abre */
+.notificacion.desplegar {
+  transform: scaleX(1) scaleY(1);
+  opacity: 1;
+  max-height: 200px;
+  margin-bottom: 0;
+}
+
+/* Efecto de plegado - Como mapa que se cierra */
+.notificacion.plegar {
+  transform: scaleX(0.2) scaleY(0.2);
+  opacity: 0;
+  max-height: 0;
+  margin-bottom: -15px;
+}
+
+/* Cabecera de la notificación */
+.cabecera-notificacion {
+  display: flex;
+  align-items: center;
+  padding: 14px 18px;
+  font-weight: 600;
+  font-size: 16px;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+/* Cuerpo de la notificación */
+.cuerpo-notificacion {
+  padding: 18px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Estilo para notificación de éxito */
+.notificacion.exito {
+  background-color: rgba(212, 237, 218, 0.95); /* verde claro */
+  border-left: 6px solid #28a745;
+}
+.notificacion.exito .cabecera-notificacion {
+  color: #155724;
+  background-color: rgba(40, 167, 69, 0.08);
+}
+
+
+/*  Estilo para notificación de error */
+.notificacion.error {
+  background-color: rgba(248, 215, 218, 0.95); /* rojo suave */
+  border-left: 6px solid #dc3545;
+}
+.notificacion.error .cabecera-notificacion {
+  color: #721c24;
+  background-color: rgba(220, 53, 69, 0.08);
+}
+
+
+/* Icono de notificación */
+.icono-notificacion {
+  margin-right: 12px;
+  font-size: 20px;
+}
+
+/* Efecto de hover para interactividad */
+.notificacion:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Animaciones mejoradas */
+@keyframes desplegar-notificacion {
+  0% {
+    transform: scaleX(0.2) scaleY(0.2);
+    opacity: 0;
+    max-height: 0;
+  }
+  60% {
+    transform: scaleX(1.05) scaleY(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleX(1) scaleY(1);
+    max-height: 200px;
+  }
+}
+
+@keyframes plegar-notificacion {
+  0% {
+    transform: scaleX(1) scaleY(1);
+    opacity: 1;
+    max-height: 200px;
+  }
+  40% {
+    transform: scaleX(1.05) scaleY(0.3);
+  }
+  100% {
+    transform: scaleX(0.2) scaleY(0.2);
+    opacity: 0;
+    max-height: 0;
+  }
+}
+
+/* Asignar las animaciones */
+.notificacion.desplegar {
+  animation: desplegar-notificacion 0.5s forwards;
+}
+
+.notificacion.plegar {
+  animation: plegar-notificacion 0.5s forwards;
+}
+
+/* Responsive para móviles */
+@media (max-width: 600px) {
+  .contenedor-notificaciones {
+    top: 60px;
+    right: 15px;
+    left: 15px;
+    align-items: flex-end;
+  }
+  
+  .notificacion {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+/*-----------------------------------------*/
+.notificacion.confirmacion {
+  background-color: rgba(230, 230, 230, 0.95);
+  border-left: 6px solid #999;
+}
+
+.notificacion.confirmacion .cabecera-notificacion {
+  color: #333;
+  background-color: rgba(180, 180, 180, 0.1);
+}
+
+.acciones-notificacion {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.acciones-notificacion button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.acciones-notificacion .btn-confirmar {
+flex: 1;
+}
+
+.acciones-notificacion .btn-cancelar {
+ flex: 1;
+}

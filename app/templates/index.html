@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>NLPolitik</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styleIndex.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styleMenuLateral.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styleEncabezado.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styleArchivos.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styleInicioSesion.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styleRegistro.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styleNotificacion.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styleAgrupamiento.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styleHistorial.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styleTerminos.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styleVentanaEmergente.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styleTerminosUso.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="icon" href="static/img/NLPolitik.png" type="image/png">
+  
+</head>
+<body {% if session.get('usuario_id') %}data-logueado="true"{% else %}data-logueado="false"{% endif %}>
+
+  <div class="menu-lateral">
+    <ul>
+      <li><a href="{{ url_for('main.home') }}"><i class="fas fa-home"></i><span>Inicio</span></a></li>
+      <div id="menu-privado">
+        <li><a href="{{ url_for('main.archivos') }}"><i class="fa-solid fa-file"></i><span>Archivos</span></a></li>
+        <li><a href="{{ url_for('main.agrupamiento') }}"><i class="fa-solid fa-circle-nodes"></i><span>Agrupamiento</span></a></li>
+        <li><a href="{{ url_for('main.historial') }}"><i class="fas fa-clock-rotate-left"></i><span>Historial</span></a></li>
+        <li><a href="{{ url_for('main.terminos') }}"><i class="fa-solid fa-map"></i><span>Términos</span></a></li>
+     </div>
+      <!-- Espacio flexible para empujar el login hacia abajo -->
+      <div style="flex-grow: 1;"></div>
+      
+<li class="bottom-item boton-configurar-cuenta">
+  <a href="{{ url_for('main.configurarUsuario') }}">
+    <i class="fa-solid fa-user-gear"></i><span>Configurar cuenta</span>
+  </a>
+</li>
+
+<li class="bottom-item boton-cerrar-sesion" style="display: none;">
+  <a href="#" id="enlace-cerrar-sesion" data-url="{{ url_for('main.cerrar_sesion') }}">
+    <i class="fa-solid fa-left-long"></i><span>Cerrar sesión</span>
+  </a>
+</li>
+
+<li class="bottom-item boton-iniciar-sesion">
+  <a href="{{ url_for('main.inicioSesion') }}">
+    <i class="fa-solid fa-right-long"></i><span>Iniciar sesión</span>
+  </a>
+</li>
+    </ul>
+  </div>
+
+  <div class="content">
+    {% block content %}
+    <div id="urls-config" 
+     data-login="{{ url_for('main.inicioSesion') }}"
+     data-agrupamiento="{{ url_for('main.agrupamiento') }}"
+     style="display: none;">
+    </div>
+    <div class="index-layout">
+        <header class="cabecera" id="inicio">
+            <nav class="navegacion">
+                <div class="logo">
+                    <i class="fa-solid fa-house"></i>
+                    BIENVENIDO
+                </div>
+                
+                <button class="boton-principal" id="boton-probar">Probar Ahora</button>
+            </nav>
+        </header>
+
+        <section class="seccion-hero">
+            <div class="contenido-hero">
+                <h1>Analiza y clasifica el discurso político</h1>
+                <p>NLPolitik clasifica automáticamente contenido político en el eje izquierda-derecha e identifica la prominencia de temas económicos utilizando técnicas avanzadas de NLP y machine learning.</p>
+                <button class="boton-principal" id="boton-analizar">Comenzar Análisis</button>
+                
+            </div>
+            <div class="imagen-hero">
+                <img src="static/img/LogoNLPolitik.png" alt="Logo AGRUPA - Sistema de posicionamiento político" class="logo-agrupa">
+            </div>
+        </section>
+        
+        <section class="inspiracion" id="inspiracion">
+            <div class="contenedor-inspiracion">
+                <h2 class="titulo-seccion">Base Metodológica: El Proyecto MARPOR</h2>
+                <div class="contenido-principal">
+                    <!-- Bloque que explica la conexión directa con MARPOR -->
+                    <div class="marpor-destacado">
+                        <div class="marpor-header">
+                            <i class="fas fa-scroll"></i>
+                            <h3>Manifesto Project (MARPOR)</h3>
+                        </div>
+                        <p>
+                            <strong>NLPolitik</strong> se construye sobre los cimientos del <strong><a href="https://manifesto-project.wzb.eu/" target="_blank" rel="noopener noreferrer">Manifesto Project (MARPOR)</a></strong>, 
+                            el estándar académico para el análisis comparativo de programas electorales. Este proyecto ha codificado sistemáticamente 
+                            miles de manifiestos en más de 67 países, demostrando que las ideologías políticas pueden ser categorizadas de manera 
+                            estructurada y empírica (Lehmann et al., 2025).
+                        </p>
+
+                        <!-- Párrafo que conecta directamente con tu tesis y pipeline -->
+                        <div class="innovacion-destacada">
+                            <h4>De MARPOR a NLPolitik: Un Puente Metodológico</h4>
+                            <p>
+                                El corpus y el esquema de clasificación de MARPOR proporcionan la base de conocimiento necesaria para entrenar 
+                                el <strong>clasificador supervisado (SVM)</strong> de NLPolitik. Mientras MARPOR se enfoca en el análisis manual de manifiestos, 
+                                NLPolitik traslada ese rigor al análisis automatizado y escalable del discurso político digital, utilizando 
+                                la escala <strong>RILE</strong> como puente para la clasificación ideológica en el eje izquierda-derecha.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="caracteristicas" id="caracteristica">
+            <h2 class="titulo-seccion">¿Por qué usar NLPolitik?</h2>
+            <div class="grid-caracteristicas">
+                <div class="tarjeta-caracteristica">
+                    <div class="icono-caracteristica">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Análisis con Machine Learning Avanzado</h3>
+                    <p>Utilizamos embeddings BERT, autoencoders y modelos de clustering para análisis semántico profundo del discurso político.</p>
+                </div>
+                <div class="tarjeta-caracteristica">
+                    <div class="icono-caracteristica">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3>Base MARPOR</h3>
+                    <p>Entrenado con el corpus de Manifesto Project, el gold standard para análisis de contenido político validado científicamente.</p>
+                </div>
+                <div class="tarjeta-caracteristica">
+                    <div class="icono-caracteristica">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <h3>Pipeline Integral</h3>
+                    <p>Sistema completo desde preprocesamiento NLP hasta clasificación ideológica y detección de temas económicos con PLDA.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="como-funciona" id="como-funciona">
+            <h2 class="titulo-seccion">Cómo funciona</h2>
+            <div class="pasos">
+                <div class="paso">
+                    <div class="numero-paso">1</div>
+                    <h3>Escribe o sube</h3>
+                    <p>Comparte tus opiniones sobre temas económicos escribiendo un texto o carga tus archivos al sistema.</p>
+                </div>
+                <div class="paso">
+                    <div class="numero-paso">2</div>
+                    <h3>Analizamos</h3>
+                    <p>Nuestros sistemas procesan tu lenguaje natural con embeddings y modelos de clustering para identificar patrones.</p>
+                </div>
+                <div class="paso">
+                    <div class="numero-paso">3</div>
+                    <h3>Obtén resultados</h3>
+                    <p>Recibe tu posición en el espectro político-económico con una explicación detallada de nuestro análisis.</p>
+                </div>
+            </div>
+        </section>
+
+     
+        <section class="tuberia-procesamiento" id="tuberia-procesamiento">
+            <div class="contenedor-tuberia">
+                <div class="cabecera-tuberia">
+                    <div class="texto-introductorio">
+                        <h2 class="titulo-seccion">Tubería de Procesamiento Inteligente</h2>
+                        <p class="descripcion-tuberia">Descubre cómo NLPolitik transforma opiniones textuales en posicionamientos políticos mediante técnicas avanzadas</p>
+                        <p class="detalle-tuberia">Nuestro sistema utiliza algoritmos de vanguardia en Procesamiento de Lenguaje Natural para analizar textos y determinar su orientación en el espectro político-económico.</p>
+                        <div class="caracteristicas-destacadas">
+                            <div class="caracteristica">
+                                <i class="fas fa-brain"></i>
+                                <span>Modelos de embeddings avanzados</span>
+                            </div>
+                            <div class="caracteristica">
+                                <i class="fas fa-project-diagram"></i>
+                                <span>Algoritmos de clustering semántico</span>
+                            </div>
+                            <div class="caracteristica">
+                                <i class="fas fa-robot"></i>
+                                <span>Clasificación con SVM</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="visualizacion-compacta">
+                        <!-- Visualización del paso actual -->
+                        <div class="visualizacion-paso">
+                            <div class="contenido-visualizacion" id="contenido-visualizacion">
+                                <!-- El contenido se cargará dinámicamente con JavaScript -->
+                            </div>
+                        </div>
+                        
+                        <!-- Controles de navegación -->
+                        <div class="controles-tuberia">
+                            <button class="boton-control" id="boton-anterior" disabled>
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            
+                            <div class="indicadores-pasos">
+                                <!-- Los indicadores se generarán con JavaScript -->
+                            </div>
+                            
+                            <button class="boton-control" id="boton-siguiente">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="informacion-paso">
+                            <h3 id="titulo-paso">Carga y Preprocesamiento</h3>
+                            <p id="descripcion-paso">Texto crudo es tokenizado, limpiado y normalizado para su análisis</p>
+                            <div class="progreso-tuberia">
+                                <div class="barra-progreso-tuberia" id="barra-progreso-tuberia"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        <footer class="pie-pagina">
+            <div class="contenido-pie">
+                <div class="columna-pie">
+                    <h3>NLPolitik</h3>
+                    <p>Sistema de posicionamiento político basado en análisis de opiniones mediante técnicas avanzadas de NLP y machine learning.</p>
+                    <div class="enlaces-sociales">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="columna-pie">
+                    <h3>Enlaces</h3>
+                    <ul class="enlaces-inicio">
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#inspiracion">Base Metodológica</a></li>
+                        <li><a href="#caracteristica">¿Por qué usar NLPolitik?</a></li>
+                        <li><a href="#como-funciona">Cómo funciona</a></li>
+                        <li><a href="#tuberia-procesamiento">Metodología</a></li>
+                    </ul>
+                </div>
+                <div class="columna-pie">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="{{ url_for('main.terminosUso') }}">Términos de uso</a></li>
+                        <li><a href="{{ url_for('main.politicaPrivacidad') }}">Política de privacidad</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="derechos-autor">
+                &copy; 2025 NLPolitik - Todos los derechos reservados
+            </div>
+        </footer>
+    </div>
+    {% endblock %}
+  </div>
+ 
+  <script>
+    const mensajesFlash = [];
+    {% with mensajes = get_flashed_messages(with_categories=true) %}
+      {% for categoria, mensaje in mensajes %}
+        mensajesFlash.push({ tipo: '{{ categoria }}', mensaje: '{{ mensaje }}' });
+      {% endfor %}
+    {% endwith %}
+  </script>
+  <script src="{{ url_for('static', filename='js/notificacion.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/sessionStorage.js') }}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+</body>
+</html>
+
+
+

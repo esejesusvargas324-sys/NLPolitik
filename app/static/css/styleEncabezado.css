@@ -1,0 +1,114 @@
+/* Sección de encabezado para templates*/
+.seccion-encabezado,
+.files-list {
+  position: relative;
+
+  border-radius: 10px 0px 10px 0px;
+  padding: 20px;
+  margin: 10px 10px 20px 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+
+  background: linear-gradient(135deg, var(--color-principal-oscuro), var(--color-principal));
+
+}
+
+.seccion-encabezado::before,
+.seccion-encabezado::after,
+.files-list::before,
+.files-list::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.58);
+  animation-timing-function: ease-in-out;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Círculo 1 */
+.seccion-encabezado::before,
+.files-list::before {
+  width: 120px;
+  height: 120px;
+  top: 25%;
+  right: -60px;
+  animation: orbita1 10s infinite alternate;
+}
+
+/* Círculo 2 */
+.seccion-encabezado::after,
+.files-list::after {
+  width: 90px;
+  height: 90px;
+  top: 60%;
+  right: -40px;
+  animation: orbita2 12s infinite alternate;
+}
+
+@keyframes orbita1 {
+  0%   { transform: translate(0, 0) scale(0.9); }
+  50%  { transform: translate(-40px, -30px) scale(1.3); }
+  100% { transform: translate(-80px, 10px) scale(1); }
+}
+
+@keyframes orbita2 {
+  0%   { transform: translate(0, 0) scale(1.2); }
+  50%  { transform: translate(-20px, -50px) scale(0.9); }
+  100% { transform: translate(-60px, 30px) scale(1.4); }
+}
+.encabezado-contenido-horizontal {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  position: relative;
+}
+
+/* Ícono grande a la izquierda */
+.encabezado-icono {
+  flex-shrink: 0;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.encabezado-icono i {
+  font-size: 90px;
+  color: #f48b3a;
+  opacity: 0.85;
+}
+
+/* Separador tipo cuadrícula desvanecida */
+.encabezado-separador-horizontal {
+  
+  width: 60px;
+  height: 100px;
+  background-image:
+    linear-gradient(to right, rgba(43, 77, 107, 0.2) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(43, 77, 107, 0.2) 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0.4;
+  mask-image: linear-gradient(to right, transparent 0%, black 50%, transparent 100%);
+}
+
+/* Texto */
+.encabezado-texto {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.encabezado-texto h1 {
+  font-size: 28px;
+  margin: 0;
+  color:#ffffff;
+}
+
+.encabezado-texto p {
+  font-size: 16px;
+  margin-top: 8px;
+  color: #f5c9a8;
+} 

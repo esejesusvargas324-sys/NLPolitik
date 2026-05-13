@@ -1,0 +1,140 @@
+.terminos-uso-layout {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    flex: 1;
+}
+
+/* Sección Hero para Términos */
+.seccion-hero-terminos {
+    display: flex;
+    align-items: center;
+    padding: 80px 20px;
+    background: linear-gradient(135deg, var(--color-acento-oscuro), var(--color-acento-claro));
+    color: var(--color-blanco);
+    text-align: center;
+    border-radius: 10px;
+    margin: 20px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.seccion-hero-terminos::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 200%;
+    background: radial-gradient(circle, var(--color-principal-muy-claro) 0%, transparent 70%);
+    opacity: 0.2;
+    z-index: -1;
+}
+
+
+.contenido-hero-terminos {
+    flex: 1;
+    max-width: 800px;
+    margin: 0 auto;
+    padding-right: 40px;
+}
+
+.seccion-hero-terminos  h1 {
+    font-size: 2.8rem;
+    margin-bottom: 30px;
+    opacity: 0.9;
+    text-align: left;
+    
+    
+}
+
+.seccion-hero-terminos  p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    opacity: 0.9;
+    text-align: left;
+}
+
+.imagen-hero-terminos {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 100px;
+}
+
+/* Contenido de Términos */
+.terminos-container {
+    background: var(--color-blanco);
+    border-radius: 15px;
+    padding: 40px;
+    max-width: 80%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(to top, var(--color-blanco), var(--color-fondo));
+    flex: 1;
+    margin: 50px auto;
+}
+
+.terminos-titulo {
+    color: var(--color-principal-oscuro);
+    font-size: 2.2rem;
+    margin-bottom: 30px;
+    text-align: center;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.terminos-titulo::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-acento), var(--color-principal-claro));
+    border-radius: 2px;
+}
+
+.seccion-termino {
+    margin-bottom: 40px;
+}
+
+.seccion-termino h2 {
+    color: var(--color-principal);
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.seccion-termino h2 i {
+    margin-right: 10px;
+    color: var(--color-acento);
+}
+
+.seccion-termino p {
+    margin-bottom: 15px;
+    color: var(--color-texto);
+    line-height: 1.8;
+}
+
+.seccion-termino ul {
+    margin-left: 20px;
+    margin-bottom: 15px;
+}
+
+.seccion-termino li {
+    margin-bottom: 8px;
+    line-height: 1.6;
+}
+
+.fecha-actualizacion {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    color: var(--color-texto-claro);
+    font-style: italic;
+}

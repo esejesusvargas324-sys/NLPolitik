@@ -1,0 +1,781 @@
+/* ----------------------------------------------------------------------------------------------*/
+
+/* Estilos para las vistas del gestor de archivos */
+.archivos-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Ocupar toda la altura de la ventana */
+  padding: 10px;
+  box-sizing: border-box;
+  gap: 10px; /* Espacio entre secciones */
+}
+
+.despliege-archivos {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 5px;
+  min-height: 700px; /* Altura mínima para reservar espacio */
+}
+
+/* Sección del menú de vistas */
+.menu-vistas-archivos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  background-color:#e9ecef;
+  padding: 12px 16px;
+  border-radius: 8px;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+
+/* Contenido dinámico de resultados */
+.contenido-vistas-archivos {
+  background-color:#e9ecef;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+}
+
+.vista-archivos-titulo h2 {
+  margin: 0;
+  font-size: 22px;
+  text-align: center;
+  color: var(--color-principal-oscuro);
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+  font-weight: 700; 
+  position: relative;
+   
+}
+
+.vista-archivos-titulo h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-acento), var(--color-principal-claro));
+    border-radius: 2px;
+}
+
+.vista-archivos-subtitulo {
+  text-align: center;
+  color: var(--color-texto-claro);
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+/* ----------------------------------------------------------------------------------------------*/
+/* ----------------------------------------------------------------------------------------------*/
+/* Contenedor del menú */
+#base {
+  width: 100%;
+}
+
+/* Menú horizontal */
+.menu-vista-archivo {
+  margin: 0 auto;
+  padding: 0;
+  height: 80px;
+  background-color: #fdfdfd;
+  border-radius: 20px;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Cada ítem del menú */
+.menu-vista-archivo li {
+  flex: 1 1 auto;
+  justify-content: center;
+  align-items: center;
+  display: inline-block;
+  text-align: center;
+  border-right: 1px solid #ccc;
+  transition: all 0.2s ease-in-out;
+}
+
+
+/* Hover efecto */
+.menu-vista-archivo li:hover {
+  background: #c9e2f5e4;
+  width: 30%;
+  box-shadow: inset 10px 10px 10px -10px rgba(0, 0, 0, 0.2),
+              inset -10px 10px 10px -10px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 20px;
+}
+
+/* Enlaces */
+.menu-vista-archivo li a {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  height: 80px;
+  color: #012846;
+  font-size: 14px;
+  gap: 6px;
+  width: 100%;
+  border-radius: 20px;
+}
+
+/* Íconos */
+.menu-vista-archivo li a i {
+  font-size: 22px;
+  color: #012846;
+}
+
+/* Texto */
+.menu-vista-archivo li div {
+  font-size: 14px;
+  font-weight: 600;
+  color: #012846;
+}
+
+/* Estado activo */
+.menu-vista-archivo li a.activo {
+  background-color: #c9e2f5e4;
+  font-weight: bold;
+  border-radius: 20px;
+}
+
+.menu-vista-archivo li:last-child {
+  border-right: none;
+
+
+/* Responsive para tablet (768px-1024px) */
+@media (max-width: 1024px) {
+  .menu-vista-archivo {
+    height: 70px;
+    border-radius: 15px;
+  }
+  
+  .menu-vista-archivo li a {
+    height: 70px;
+    font-size: 13px;
+    gap: 5px;
+  }
+  
+  .menu-vista-archivo li a i {
+    font-size: 20px;
+  }
+  
+  .menu-vista-archivo li div {
+    font-size: 13px;
+  }
+  
+  .menu-vista-archivo li:hover {
+    width: 35%;
+  }
+}
+
+/* Responsive para móvil (<768px) */
+@media (max-width: 767px) {
+  .menu-vista-archivo {
+    height: auto;
+    flex-direction: column;
+    border-radius: 10px;
+    padding: 10px 0;
+  }
+  
+  .menu-vista-archivo li {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #ccc;
+    padding: 8px 0;
+  }
+  
+  .menu-vista-archivo li:last-child {
+    border-bottom: none;
+  }
+  
+  .menu-vista-archivo li a {
+    height: 60px;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding-left: 20px;
+    gap: 15px;
+  }
+  
+  .menu-vista-archivo li a i {
+    font-size: 24px;
+  }
+  
+  .menu-vista-archivo li div {
+    font-size: 14px;
+  }
+  
+  .menu-vista-archivo li:hover {
+    width: 100%;
+    background: #c9e2f5e4;
+    box-shadow: none;
+  }
+  
+  .menu-vista-archivo li a.activo {
+    box-shadow: none;
+  }
+}}
+
+
+/* ----------------------------------------------------------------------------------------------*/
+
+/* Contenedor general */
+.carga-loyout {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+
+}
+
+/* Botones superiores */
+.botones-carga {
+  display: flex;
+  gap: 10px;
+}
+
+
+/* Cada grupo con su título y fondo */
+.grupo-carga {
+  background-color: #f2f7fb;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Título del grupo */
+.titulo-carga {
+  font-size: 15px;
+  font-weight: 600;
+  color: #012846;
+  margin-bottom: 10px;
+}
+
+/* Botones dentro de cada grupo */
+.grupo-botones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Tarjeta base */
+.formulario-tarjeta {
+  display: flex;
+  flex-direction: row;
+  background: #ffffff;
+  border-radius: 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  height: 540px;
+  margin: 10px;
+}
+
+/* Imagen */
+.formulario-imagen {
+  flex: 1;
+  background-color: #001a34;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px 0 30px 0px;
+}
+
+.formulario-imagen img {
+  height: 500px;
+  width: auto;
+  object-fit: contain;
+  border-radius: 30px 0 30px 0px;
+}
+
+/* Efecto hover avanzado para formulario-tarjeta */
+.formulario-tarjeta:hover .formulario-imagen {
+  background: #001a34;
+  transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
+  filter: blur(3px);
+}
+
+.formulario-tarjeta:hover .formulario-imagen::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, 
+             rgba(255,255,255,0.2) 0%, 
+             rgba(255,255,255,0) 60%);
+  transform: rotate(30deg) scale(0);
+  opacity: 0;
+  transition: all 0.8s ease;
+}
+
+.formulario-tarjeta:hover .formulario-imagen img {
+  transform: scale(1.06) translateX(-8px);
+  filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4)) 
+         brightness(1.08) 
+         contrast(1.05);
+  transition: all 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Animaciones al activar el hover */
+.formulario-tarjeta:hover .formulario-imagen::before {
+  transform: rotate(30deg) scale(1);
+  opacity: 1;
+}
+
+/* Formulario */
+.formulario-contenido {
+  flex: 20;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0 30px 30px 0;
+
+  position: relative;
+  top: auto;
+  left: auto;
+  transform: none;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2), 
+              0 8px 30px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  overflow: hidden;
+}
+
+/* Formularios internos */
+.formulario-archivo {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Campo de enlace con botón */
+.enlace-carga {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+#opinion {
+  height: 220px;
+}
+
+
+/* Elementos decorativos - corculos blobs */
+.formulario-contenido::before,
+.formulario-contenido::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background-color: #f5c9a868;
+  animation-timing-function: ease-in-out;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Círculo 1 - Posición más centrada */
+.formulario-contenido::before {
+  width: min(150px, 30vw);
+  height: min(150px, 30vw);
+  top: 20%;
+  right: -40px;
+  animation: orbita1 12s infinite alternate;
+}
+
+/* Círculo 2 - Posición más centrada */
+.formulario-contenido::after {
+  width: min(150px, 30vw);
+  height: min(150px, 30vw);
+  bottom: 20%;
+  left: -10px;
+  animation: orbita2 14s infinite alternate-reverse;
+}
+
+/* Responsive para tablet (768px-1024px) */
+@media (max-width: 1024px) {
+  .formulario-tarjeta {
+    flex-direction: column;
+    height: auto;
+  }
+  
+  .formulario-imagen {
+    border-radius: 30px 30px 0 0;
+    padding: 20px;
+  }
+  
+  .formulario-imagen img {
+    height: 300px;
+    border-radius: 30px 30px 0 0;
+  }
+  
+  .formulario-contenido {
+    border-radius: 0 0 30px 30px;
+    padding: 20px;
+  }
+  
+  .botones-carga {
+    flex-wrap: wrap;
+  }
+  
+  .grupo-carga {
+    padding: 12px;
+  }
+  
+  #opinion {
+    height: 180px;
+  }
+  
+  /* Ajuste de los blobs */
+  .formulario-contenido::before,
+  .formulario-contenido::after {
+    display: none;
+  }
+}
+
+/* Responsive para móvil (<768px) */
+@media (max-width: 767px) {
+  .formulario-tarjeta {
+    margin: 5px;
+    border-radius: 20px;
+  }
+  
+  .formulario-imagen {
+    border-radius: 20px 20px 0 0;
+    padding: 15px;
+  }
+  
+  .formulario-imagen img {
+    height: 200px;
+    border-radius: 20px 20px 0 0;
+  }
+  
+  .formulario-contenido {
+    border-radius: 0 0 20px 20px;
+    padding: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .botones-carga {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .grupo-botones {
+    justify-content: center;
+  }
+  
+  .enlace-carga {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  #opinion {
+    height: 150px;
+  }
+  
+  /* Desactivar efectos hover en móvil */
+  .formulario-tarjeta:hover .formulario-imagen,
+  .formulario-tarjeta:hover .formulario-imagen img {
+    transform: none;
+    filter: none;
+    background-color: #002b4f;
+  }
+  
+  .formulario-tarjeta:hover .formulario-imagen::before {
+    display: none;
+  }
+}
+/* ----------------------------------------------------------------------------------------------*/
+.gestion-loyout {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.switch-edicion {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: sans-serif;
+}
+
+.switch-edicion-usuario {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: sans-serif;
+  padding-top: 15px;
+}
+
+.switch-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.switch-toggle input {
+  display: none;
+}
+
+.slider {
+  width: 50px;
+  height: 26px;
+  background-color: #cbd5e1; /* inactivo */
+  border-radius: 30px;
+  position: relative;
+  transition: background-color 0.3s;
+}
+
+.slider::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.3s;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.switch-toggle input:checked + .slider {
+  background-color: #012846; /* activo */
+}
+
+.switch-toggle input:checked + .slider::before {
+  transform: translateX(24px);
+}
+
+.label-text {
+  margin-left: 10px;
+  color: #012846;
+  font-size: 14px;
+  user-select: none;
+}
+
+/* Formularios internos */
+.formulario-gestion {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.contenedor-tabla {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr); 
+  gap: 20px;
+  flex-wrap: wrap;
+  margin: 20px;
+}
+
+.contenido-formulario-gestion {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 20px;
+}
+
+
+/* Espaciado entre label y campo */
+.campo-formulario label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #012846;
+}
+#formulario-archivo-vacio {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px; /* Asegura espacio para centrar */
+}
+
+#formulario-archivo-vacio .contenido-formulario-gestion {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#formulario-archivo-vacio .campo-formulario-vacio {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  padding: 20px;
+  opacity: 0.8;
+}
+
+#formulario-archivo-vacio .campo-formulario-vacio img {
+  max-width: 400px;
+  width: 100%;
+  height: auto;
+  opacity: 0.6;
+}
+
+#formulario-archivo-vacio .campo-formulario-vacio p {
+  font-size: 16px;
+  color: #666;
+  font-style: italic;
+  margin: 0;
+}
+
+
+/* Ajustamos altura del textarea */
+textarea#contenido-personal {
+  height: 450px;
+  resize: none;
+  opacity: 80%;
+}
+
+textarea#contenido-externo {
+  height: 450px;
+  resize: none;
+  opacity: 80%;
+}
+
+#formulario-archivo-externo,
+#formulario-archivo-personal {
+  display: none;
+}
+
+#formulario-archivo-externo input:disabled,
+#formulario-archivo-externo textarea:disabled,
+#formulario-archivo-externo button:disabled {
+  cursor: not-allowed;
+}
+
+
+#formulario-archivo-personal input:disabled,
+#formulario-archivo-personal textarea:disabled,
+#formulario-archivo-personal button:disabled {
+  cursor: not-allowed;
+}
+
+/*Responsive para tablet (768px-1024px) */
+@media (max-width: 1024px) {
+  .contenido-formulario-gestion {
+    gap: 16px;
+    margin-top: 15px;
+  }
+  
+  textarea#contenido-personal,
+  textarea#contenido-externo {
+    height: 350px;
+  }
+  
+  .contenedor-tabla {
+    margin: 15px;
+    gap: 15px;
+  }
+  
+  #formulario-archivo-vacio .campo-formulario-vacio img {
+    max-width: 300px;
+  }
+  
+  .switch-edicion,
+  .switch-edicion-usuario {
+    flex-wrap: wrap;
+  }
+}
+
+/* Responsive para móvil (<768px) */
+@media (max-width: 767px) {
+  .contenido-formulario-gestion {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-top: 10px;
+  }
+  
+  textarea#contenido-personal,
+  textarea#contenido-externo {
+    height: 250px;
+  }
+  
+  .contenedor-tabla {
+    margin: 10px;
+    gap: 10px;
+  }
+  
+  #formulario-archivo-vacio {
+    min-height: 200px;
+  }
+  
+  #formulario-archivo-vacio .campo-formulario-vacio img {
+    max-width: 200px;
+  }
+  
+  #formulario-archivo-vacio .campo-formulario-vacio p {
+    font-size: 14px;
+  }
+  
+  .slider {
+    width: 40px;
+    height: 22px;
+  }
+  
+  .slider::before {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .switch-toggle input:checked + .slider::before {
+    transform: translateX(18px);
+  }
+  
+  .label-text {
+    font-size: 13px;
+  }
+  
+  .campo-formulario label {
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

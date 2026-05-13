@@ -1,0 +1,61 @@
+{% extends "index.html" %}
+
+{% block content %}
+<div id="seccion-registro" class="seccion-inicio-sesion">
+  <div class="contenedor-columnas">
+    <div class="columna-izquierda-f">
+      <div class="icono-sesion">
+        <img src="static/img/configurar_usuario.png">
+      </div>
+      <div class="titulo-sesion">
+        <h2>Cuenta</h2>
+        <p>Edite credenciales o borre usuario</p>
+      </div>
+    </div>
+    
+    <div class="columna-derecha-f">
+        <form id="formulario-configurar-usuario" class="formulario-configurar-usuario-layout" method="POST" action="{{ url_for('main.actualizar_usuario') }}">
+
+          <div class="grupo-formulario">
+            <label for="nombre">Nombre completo</label>
+            <input type="text" id="nombre" name="nombre" value="{{ usuario.nombre if usuario }}">
+          </div>
+
+          <div class="grupo-formulario">
+            <label for="email">Correo electrónico</label>
+            <input type="email" id="email" name="email" value="{{ usuario.correo_electronico if usuario }}">
+          </div>
+
+          <button type="button" class="boton-sesion" onclick="window.location.href='{{ url_for('main.configurarContrasena') }}'">
+            <i class="fa-solid fa-pen"></i>Editar Contraseña
+          </button>
+
+          <div class="grupo-formulario">
+            <div class="switch-edicion-usuario">
+              <label class="switch-toggle">
+                <input type="checkbox" id="edicion-toggle" />
+                <span class="slider"></span>
+                <span class="label-text">Habilitar edición</span>
+              </label>
+            </div>
+          </div>
+
+          <input type="hidden" name="accion" id="accion">
+
+          <button type="submit" class="boton-sesion" onclick="setAccion('editar')">
+            <i class="fa-solid fa-user-pen"></i>Editar credenciales
+          </button>
+
+          <button type="submit" class="boton-sesion" onclick="setAccion('eliminar')">
+            <i class="fa-solid fa-user-minus"></i>Borrar usuario
+          </button>
+        </form>
+    </div>
+  </div>
+</div>
+
+<div class="fondo-animado" id="fondo-animado"></div>
+<script src="{{ url_for('static', filename='js/configurarUsuario.js') }}"></script>
+<script src="{{ url_for('static', filename='js/notificacion.js') }}"></script>
+<script src="{{ url_for('static', filename='js/inicioSesion.js') }}"></script>
+{% endblock %}
