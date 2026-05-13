@@ -13,7 +13,7 @@ CREATE TABLE Usuario (
 );
 
 -- Tabla: TextoProcesado
--- 🔁 Se añade Usuario_id para vincular directamente el texto al usuario
+
 CREATE TABLE TextoProcesado (
     Texto_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     Usuario_id INT UNSIGNED,
@@ -29,7 +29,7 @@ CREATE TABLE TextoProcesado (
 );
 
 -- Tabla: OpinionFuenteUsuario
--- 🔁 Se añade Texto_id para vincular la opinión al texto
+
 CREATE TABLE OpinionFuenteUsuario (
     OpinionFU_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     OpinionFU_usuario_id INT UNSIGNED,
@@ -42,7 +42,7 @@ CREATE TABLE OpinionFuenteUsuario (
 );
 
 -- Tabla: OpinionFuenteExterna
--- 🔁 Se añade Texto_id para vincular la opinión al texto
+
 CREATE TABLE OpinionFuenteExterna (
     OpinionFE_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     OpinionFE_usuario_id INT UNSIGNED,
@@ -74,7 +74,7 @@ CREATE TABLE OpinionTextoProcesado (
 );
 
 -- Tabla: Agrupacion
--- 🔁 Se elimina si el TextoProcesado se elimina
+
 CREATE TABLE Agrupacion (
     Agrupacion_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     Agrupacion_nombre VARCHAR(100),
@@ -89,7 +89,7 @@ CREATE TABLE Agrupacion (
 );
 
 -- Tabla: HistorialClasificacion
--- 🔁 Se elimina si la Agrupacion se elimina
+
 CREATE TABLE HistorialClasificacion (
     HistorialC_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     HistorialC_clasificacion_id INT UNSIGNED,
