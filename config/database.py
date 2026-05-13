@@ -7,10 +7,10 @@ db = SQLAlchemy()
 def init_db(app: Flask):
     # Configuración para procesamiento LARGO (horas)
     app.config['SQLALCHEMY_DATABASE_URI'] = (
-        'mysql+pymysql://root:NLPolitikServer123@localhost/nlpolitik'
+        'mysql+pymysql://root:NLPolitikContraseña@localhost/nlpolitik'
     )
 
-    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:TU_PASSWORD@localhost/nlpolitik"
+    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:Contraseña@localhost/nlpolitik"
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     
     #  CONFIGURACIÓN CRÍTICA para procesamiento de 30min+
@@ -40,7 +40,7 @@ def init_db(app: Flask):
             # Verificar timeout de MySQL
             result = db.session.execute(text("SHOW VARIABLES LIKE 'wait_timeout'"))
             timeout = result.fetchone()[1]
-            print(f"⏱  MySQL wait_timeout: {timeout} segundos")
+            print(f" MySQL wait_timeout: {timeout} segundos")
             
     except Exception as e:
         print(f" Error: {e}")
