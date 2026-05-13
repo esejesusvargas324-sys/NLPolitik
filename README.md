@@ -1,7 +1,8 @@
 # NLPolitik
-![Logo NLPolitik](app/static/img/LogoNLPolitik.png)
 
 Sistema para análisis automatizado del discurso político en español.
+
+![Logo NLPolitik](app/static/img/LogoNLPolitik.png)
 
 ## Características
 - Preprocesamiento con extracción de oraciones contextuales
