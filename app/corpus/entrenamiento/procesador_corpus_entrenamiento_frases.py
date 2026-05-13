@@ -50,7 +50,6 @@ class RILEFrasesExtractor:
             doc = self.spacy_nlp(texto)
             frases_encontradas = []
             
-            # ✅ ELIMINAR PATRONES SINTÁCTICOS - SOLO ORACIONES COMPLETAS
             # Oraciones completas de spaCy
             for sent in doc.sents:
                 frase = sent.text.strip()
@@ -64,7 +63,7 @@ class RILEFrasesExtractor:
                     frase_limpia = frase.lower().strip()
                     frases_encontradas.append(frase_limpia)
             
-            # ✅ FILTRO SEMÁNTICO MEJORADO PARA ORACIONES COMPLETAS
+            #  FILTRO SEMÁNTICO MEJORADO PARA ORACIONES COMPLETAS
             frases_filtradas = []
             palabras_vacias = {'el', 'la', 'los', 'las', 'un', 'una', 'unos', 'unas', 
                             'de', 'del', 'al', 'y', 'o', 'en', 'por', 'para', 'que', 
@@ -97,7 +96,7 @@ class RILEFrasesExtractor:
             print(f"Error: La carpeta {ruta_carpeta} no existe.")
             return
         
-        # ✅ DETERMINAR IDEOLOGÍA POR NOMBRE DE CARPETA
+        # DETERMINAR IDEOLOGÍA POR NOMBRE DE CARPETA
         if "izquierda" in ruta_carpeta.lower():
             ideologia_carpeta = "izquierda"
         elif "derecha" in ruta_carpeta.lower(): 
@@ -112,7 +111,7 @@ class RILEFrasesExtractor:
             print(f"No se encontraron archivos CSV en {ruta_carpeta}")
             return
         
-        print(f"\n📁 Procesando {len(archivos_csv)} archivos de {ideologia_carpeta.upper()}...")
+        print(f"\n Procesando {len(archivos_csv)} archivos de {ideologia_carpeta.upper()}...")
         
         total_frases = 0
         for archivo in archivos_csv:
@@ -120,12 +119,12 @@ class RILEFrasesExtractor:
             try:
                 df = pd.read_csv(ruta_completa)
                 
-                # ✅ SOLO necesitamos la columna 'text' - ignoramos 'cmp_code'
+            
                 if 'text' not in df.columns:
                     print(f"El archivo {archivo} no tiene columna 'text'. Saltando...")
                     continue
                 
-                print(f"\n📄 {archivo}")
+                print(f"\n {archivo}")
                 frases_archivo = 0
                 
                 for idx, fila in df.iterrows():
@@ -135,17 +134,17 @@ class RILEFrasesExtractor:
                     # Limpiar texto
                     texto_limpio = self.limpiar_texto(str(fila['text']))
                     
-                    # ✅ EXTRAER FRASES CON IDEOLOGÍA DE LA CARPETA (sin verificar código)
+          
                     frases = self.extraer_frases_por_texto(texto_limpio, ideologia_carpeta)
                     frases_archivo += len(frases)
                 
                 total_frases += frases_archivo
-                print(f"  ✅ Frases extraídas: {frases_archivo}")
+                print(f"   Frases extraídas: {frases_archivo}")
                     
             except Exception as e:
-                print(f"❌ Error procesando {archivo}: {e}")
+                print(f" Error procesando {archivo}: {e}")
         
-        print(f"\n🎯 TOTAL FRASES {ideologia_carpeta.upper()} EXTRAÍDAS: {total_frases}")
+        print(f"\n TOTAL FRASES {ideologia_carpeta.upper()} EXTRAÍDAS: {total_frases}")
 
     def procesar_archivos_no_politicos(self, ruta_carpeta):
         """Procesa archivos NO políticos SOLO para entrenamiento"""
@@ -159,7 +158,7 @@ class RILEFrasesExtractor:
             print(f"No se encontraron archivos CSV en {ruta_carpeta}")
             return
         
-        print(f"\n📁 Procesando {len(archivos_csv)} archivos NO políticos (solo entrenamiento)...")
+        print(f"\n Procesando {len(archivos_csv)} archivos NO políticos (solo entrenamiento)...")
         
         total_frases = 0
         for archivo in archivos_csv:
@@ -172,7 +171,7 @@ class RILEFrasesExtractor:
                     print(f"El archivo {archivo} no tiene columna 'text'. Saltando...")
                     continue
                 
-                print(f"\n📄 {archivo}")
+                print(f"\n {archivo}")
                 frases_archivo = 0
                 
                 for idx, fila in df.iterrows():
@@ -187,12 +186,12 @@ class RILEFrasesExtractor:
                     frases_archivo += len(frases)
                 
                 total_frases += frases_archivo
-                print(f"  ✅ Frases no políticas extraídas: {frases_archivo}")
+                print(f"   Frases no políticas extraídas: {frases_archivo}")
                     
             except Exception as e:
-                print(f"❌ Error procesando {archivo}: {e}")
+                print(f" Error procesando {archivo}: {e}")
         
-        print(f"\n🎯 TOTAL FRASES NO POLÍTICAS EXTRAÍDAS: {total_frases}")
+        print(f"\n TOTAL FRASES NO POLÍTICAS EXTRAÍDAS: {total_frases}")
 
     def crear_dataset_entrenamiento(self, output_path, proporcion_no_politico=0.2):
         """Crea SOLO dataset de entrenamiento (sin split test)"""
@@ -202,12 +201,12 @@ class RILEFrasesExtractor:
             frases_unicas = list(set(self.dataset_entrenamiento[categoria]))
             self.dataset_entrenamiento[categoria] = frases_unicas
         
-        print(f"\n📊 DATOS DISPONIBLES PARA ENTRENAMIENTO:")
+        print(f"\n DATOS DISPONIBLES PARA ENTRENAMIENTO:")
         print(f"   - Izquierda: {len(self.dataset_entrenamiento['izquierda'])}")
         print(f"   - Derecha: {len(self.dataset_entrenamiento['derecha'])}")
         print(f"   - No político: {len(self.dataset_entrenamiento['no_politico'])}")
         
-        # ✅ ESTRATEGIA: Balancear políticos tomando el MÍNIMO para mantener balance
+        #  ESTRATEGIA: Balancear políticos tomando el MÍNIMO para mantener balance
         min_count_politico = min(len(self.dataset_entrenamiento["izquierda"]), 
                                 len(self.dataset_entrenamiento["derecha"]))
         
@@ -219,9 +218,9 @@ class RILEFrasesExtractor:
         etiquetas_politicas = (["izquierda"] * len(datos_izquierda) + 
                             ["derecha"] * len(datos_derecha))
         
-        print(f"📈 POLÍTICOS BALANCEADOS: {len(datos_politicos)} frases ({len(datos_izquierda)} izq + {len(datos_derecha)} der)")
+        print(f" POLÍTICOS BALANCEADOS: {len(datos_politicos)} frases ({len(datos_izquierda)} izq + {len(datos_derecha)} der)")
         
-        # ✅ ESTRATEGIA: Calcular no políticos como porcentaje del entrenamiento político
+        #  ESTRATEGIA: Calcular no políticos como porcentaje del entrenamiento político
         total_entrenamiento_politico = len(datos_politicos)
         cantidad_deseada_no_politico = int(total_entrenamiento_politico * proporcion_no_politico)
         
@@ -232,7 +231,7 @@ class RILEFrasesExtractor:
         datos_no_politico_balanceados = datos_no_politico[:cantidad_deseada_no_politico]
         etiquetas_no_politico_balanceadas = ["no_politico"] * len(datos_no_politico_balanceados)
         
-        print(f"📊 NO POLÍTICOS INCLUIDOS: {len(datos_no_politico_balanceados)} de {len(datos_no_politico)} disponibles ({proporcion_no_politico*100}% del entrenamiento político)")
+        print(f" NO POLÍTICOS INCLUIDOS: {len(datos_no_politico_balanceados)} de {len(datos_no_politico)} disponibles ({proporcion_no_politico*100}% del entrenamiento político)")
         
         # Combinar entrenamiento (político + no político)
         datos_entrenamiento_completo = (list(datos_politicos) + 
@@ -254,46 +253,16 @@ class RILEFrasesExtractor:
         df_entrenamiento.to_csv(output_path, index=False, encoding='utf-8')
         
         # Estadísticas detalladas
-        print(f"\n🎯 DATASET DE ENTRENAMIENTO FINAL:")
-        print(f"📁 Ruta: {output_path}")
-        print(f"📊 Total de frases: {len(df_entrenamiento)}")
+        print(f"\n DATASET DE ENTRENAMIENTO FINAL:")
+        print(f" Ruta: {output_path}")
+        print(f" Total de frases: {len(df_entrenamiento)}")
         print(f"   - Izquierda: {len(df_entrenamiento[df_entrenamiento['ideologia'] == 'izquierda'])}")
         print(f"   - Derecha: {len(df_entrenamiento[df_entrenamiento['ideologia'] == 'derecha'])}")
         print(f"   - No político: {len(df_entrenamiento[df_entrenamiento['ideologia'] == 'no_politico'])}")
         print(f"   - Proporción no político: {len(df_entrenamiento[df_entrenamiento['ideologia'] == 'no_politico'])/len(df_entrenamiento)*100:.1f}%")
         
-        # Mostrar ejemplos
-        print(f"\n🔍 EJEMPLOS DE FRASES EN ENTRENAMIENTO:")
-        muestras = df_entrenamiento.head(8)
-        for i, (_, fila) in enumerate(muestras.iterrows()):
-            print(f"  {i+1}. [{fila['ideologia']}] {fila['frase'][:70]}...")
         
         return df_entrenamiento
-
-    def mostrar_estadisticas_detalladas(self):
-        """Muestra estadísticas detalladas del dataset de frases"""
-        print("\n" + "="*60)
-        print("ESTADÍSTICAS DETALLADAS - FRASES EXTRAÍDAS")
-        print("="*60)
-        
-        total_frases = 0
-        for categoria in ["izquierda", "derecha", "no_politico"]:
-            frases = self.dataset_entrenamiento[categoria]
-            print(f"\n{categoria.upper()}: {len(frases)} frases")
-            total_frases += len(frases)
-            
-            if frases:
-                # Estadísticas de longitud de frases
-                longitudes = [len(f.split()) for f in frases]
-                print(f"  📏 Palabras por frase: {min(longitudes)} - {max(longitudes)} (avg: {sum(longitudes)/len(longitudes):.1f})")
-                
-                # Ejemplos de frases
-                print(f"  🔍 Ejemplos:")
-                for i, frase in enumerate(frases[:2]):
-                    print(f"     {i+1}. {frase}")
-        
-        print(f"\n🎯 TOTAL FRASES EXTRAÍDAS: {total_frases}")
-    
 
 def main():
     # Rutas (manteniendo tu estructura)
@@ -325,15 +294,14 @@ def main():
     print("=" * 50)
     extractor.procesar_archivos_no_politicos(no_politicos_path)
 
-    # Mostrar estadísticas y crear dataset de entrenamiento
-    extractor.mostrar_estadisticas_detalladas()
+ 
     extractor.crear_dataset_entrenamiento(output_path, proporcion_no_politico=0.2)
     
-    print("\n¡Proceso completado! ✅")
+    print("\n¡Proceso completado! ")
     print("Dataset de ENTRENAMIENTO único creado para SVM")
-    print("✅ Contenido político balanceado (izquierda/derecha)")
-    print("✅ Contenido no político incluido (20% proporción)")
-    print("✅ Pruebas se realizarán con artículos reales de medios digitales")
+    print("Contenido político balanceado (izquierda/derecha)")
+    print("Contenido no político incluido (20% proporción)")
+    print("Pruebas se realizarán con artículos reales de medios digitales")
 
 if __name__ == "__main__":
     main()
