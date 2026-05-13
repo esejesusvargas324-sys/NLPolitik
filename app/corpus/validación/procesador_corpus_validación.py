@@ -9,7 +9,8 @@ RUTA_DESTINO = r"D:\UniversidadUACM\Tesis\05_Redacción_Tesis\04_Desarrollo_Teó
 
 # Lista de artículos con su ideología
 '''
-
+    Artículos de Izquierda
+    
     # Alejandro Páez Varela - Izquierda
     {"url": "https://www.sinembargo.mx/4650726/esto-para-los-mas-jovenes/", "ideologia": "Izquierda"},
     {"url": "https://www.sinembargo.mx/4593262/4t-2-0/", "ideologia": "Izquierda"},
@@ -70,10 +71,8 @@ RUTA_DESTINO = r"D:\UniversidadUACM\Tesis\05_Redacción_Tesis\04_Desarrollo_Teó
     {"url": "https://www.sinembargo.mx/4739304/amparo-casar-persecucion-o-fraude/", "ideologia": "Izquierda"}
     {"url": "https://www.sinembargo.mx/4736118/pena-nieto-el-corrupto-tambien-regresa/", "ideologia": "Izquierda"},
     {"url": "https://www.sinembargo.mx/4627440/los-ambiciosos-vulgares/", "ideologia": "Izquierda"}  
-]
 
-
-    Derecha si
+    Artículos de Derecha 
 
      # Carlos Loret de Mola
     {"url": "https://www.informador.mx/ideas/carlos-loret-de-mola-la-economia-vamuy-bien-20251202-0171.html", "ideologia": "Derecha"},
@@ -136,6 +135,8 @@ RUTA_DESTINO = r"D:\UniversidadUACM\Tesis\05_Redacción_Tesis\04_Desarrollo_Teó
     {"url": "https://www.elimparcial.com/columnas/2024/02/13/obsesion-de-prohibir/", "ideologia": "Derecha"},
     {"url": "https://www.elimparcial.com/columnas/2024/02/12/sin-derecho-al-agua/", "ideologia": "Derecha"},
     {"url": "https://www.elimparcial.com/columnas/2024/02/06/las-20-iniciativas/", "ideologia": "Derecha"}
+
+    Artículos no políticos
     
     Cine - No político
     {"url": "https://www.milenio.com/espectaculos/famosos/timothee-chalamet-marty-supreme-mejor-pelicula-enciende-redes-sociales", "ideologia": "No_politico"},
