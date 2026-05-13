@@ -11,30 +11,30 @@ class CreadorCSVNoPoliticos:
     def procesar_urls(self, lista_urls, nombre_archivo="articulos_no_politicos.csv"):
         """Procesa una lista de URLs y crea un CSV con los artículos extraídos"""
         
-        print("📝 Iniciando extracción de artículos no políticos...")
-        print(f"🔗 URLs a procesar: {len(lista_urls)}")
+        print(" Iniciando extracción de artículos no políticos...")
+        print(f" URLs a procesar: {len(lista_urls)}")
         
         for i, url in enumerate(lista_urls, 1):
             try:
-                print(f"\n📄 Procesando URL {i}/{len(lista_urls)}: {url[:80]}...")
+                print(f"\n Procesando URL {i}/{len(lista_urls)}: {url[:80]}...")
                 
                 # Extraer datos del artículo
                 datos_articulo = self.procesar_como_dict(url)
                 
                 if "error" not in datos_articulo:
                     self.datos_articulos.append(datos_articulo)
-                    print(f"   ✅ Extraído: {datos_articulo['titulo'][:50]}...")
+                    print(f"Extraído: {datos_articulo['titulo'][:50]}...")
                 else:
-                    print(f"   ❌ Error: {datos_articulo['error']}")
+                    print(f"Error: {datos_articulo['error']}")
                     
             except Exception as e:
-                print(f"   ❌ Error procesando URL: {str(e)}")
+                print(f"Error procesando URL: {str(e)}")
         
         # Crear DataFrame y guardar CSV
         if self.datos_articulos:
             self.guardar_csv(nombre_archivo)
         else:
-            print("\n⚠️  No se pudieron extraer artículos de las URLs proporcionadas")
+            print("\nNo se pudieron extraer artículos de las URLs proporcionadas")
     
     def procesar_como_dict(self, url):
         """Método idéntico al tuyo para extraer datos del artículo"""
@@ -96,12 +96,12 @@ class CreadorCSVNoPoliticos:
         # Guardar CSV
         df.to_csv(ruta_completa, index=False, encoding='utf-8')
         
-        print(f"\n✅ CSV creado exitosamente:")
-        print(f"📁 Ubicación: {ruta_completa}")
-        print(f"📊 Artículos guardados: {len(self.datos_articulos)}")
+        print(f"\n CSV creado exitosamente:")
+        print(f" Ubicación: {ruta_completa}")
+        print(f"Artículos guardados: {len(self.datos_articulos)}")
         
         # Mostrar estadísticas
-        print(f"\n📈 ESTADÍSTICAS:")
+        print(f"\n ESTADÍSTICAS:")
         print(f"   • Fuentes únicas: {df['fuente'].nunique()}")
         print(f"   • Artículos con autor: {df['autor'].notna().sum()}")
         print(f"   • Artículos con fecha: {df['fecha_publicacion'].notna().sum()}")
@@ -116,7 +116,7 @@ def main():
     # Configuración
     carpeta_destino = r"D:\UniversidadUACM\Tesis\05_Redacción_Tesis\04_Desarrollo_Teórico_Metodologico\CSV_CORPUS\NoPoliticos"
     
-    # 📋 LISTA DE URLs NO POLÍTICAS - URLs VÁLIDAS
+    #  LISTA DE URLs NO POLÍTICAS - URLs VÁLIDAS
     lista_urls = [
         # Espectáculos - TVNotas
         "https://www.tvnotas.com.mx/espectaculos-mexico/manola-diez-explota-en-la-granja-vip-y-se-quita-la-ropa-frente-a-las-camaras-censuran-la-transmision",
@@ -262,7 +262,7 @@ def main():
     
     # Verificar que hay URLs para procesar
     if not lista_urls:
-        print("⚠️  No hay URLs para procesar.")
+        print(" No hay URLs para procesar.")
         return
     
     # Crear procesador y ejecutar
