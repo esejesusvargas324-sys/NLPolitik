@@ -1,0 +1,101 @@
+--------------
+-- Crear base de datos
+CREATE DATABASE NLPolitikDB CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE NLPolitikDB;
+
+-- Tabla: Usuario
+CREATE TABLE Usuario (
+    Usuario_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    Usuario_nombre_usuario VARCHAR(50) NOT NULL,
+    Usuario_correo VARCHAR(255) UNIQUE NOT NULL,
+    Usuario_contrasena VARCHAR(255) UNIQUE NOT NULL,
+    Usuario_fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Tabla: TextoProcesado
+-- 🔁 Se añade Usuario_id para vincular directamente el texto al usuario
+CREATE TABLE TextoProcesado (
+    Texto_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    Usuario_id INT UNSIGNED,
+    Texto_archivos_origen JSON NULL,
+    Texto_caracteres_eliminados INT UNSIGNED,
+    Texto_longitud_promedio_frases FLOAT,
+    Texto_total_frases INT UNSIGNED,
+    Texto_tiempo_procesa FLOAT,
+    Texto_textos_por_archivo JSON NULL,
+    Texto_frases_por_archivo JSON NULL,
+    Texto_etiquetas_pos_por_archivo JSON NULL,
+    FOREIGN KEY (Usuario_id) REFERENCES Usuario(Usuario_id) ON DELETE CASCADE
+);
+
+-- Tabla: OpinionFuenteUsuario
+-- 🔁 Se añade Texto_id para vincular la opinión al texto
+CREATE TABLE OpinionFuenteUsuario (
+    OpinionFU_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    OpinionFU_usuario_id INT UNSIGNED,
+    OpinionFU_titulo VARCHAR(150),
+    OpinionFU_contenido LONGBLOB,
+    OpinionFU_fecha DATETIME DEFAULT CURRENT_TIMESTAMP,
+    Texto_id INT UNSIGNED,
+    FOREIGN KEY (OpinionFU_usuario_id) REFERENCES Usuario(Usuario_id) ON DELETE CASCADE,
+    FOREIGN KEY (Texto_id) REFERENCES TextoProcesado(Texto_id) ON DELETE CASCADE
+);
+
+-- Tabla: OpinionFuenteExterna
+-- 🔁 Se añade Texto_id para vincular la opinión al texto
+CREATE TABLE OpinionFuenteExterna (
+    OpinionFE_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    OpinionFE_usuario_id INT UNSIGNED,
+    OpinionFE_fuente VARCHAR(100),
+    OpinionFE_autor VARCHAR(100),
+    OpinionFE_titulo VARCHAR(200),
+    OpinionFE_contenido LONGBLOB,
+    OpinionFE_fechaPublicacion DATE,
+    OpinionFE_url_origen VARCHAR(300),
+    OpinionFE_archivo_subido VARCHAR(255),
+    Texto_id INT UNSIGNED,
+    FOREIGN KEY (OpinionFE_usuario_id) REFERENCES Usuario(Usuario_id) ON DELETE CASCADE,
+    FOREIGN KEY (Texto_id) REFERENCES TextoProcesado(Texto_id) ON DELETE CASCADE
+);
+
+-- Tabla: OpinionTextoProcesado
+CREATE TABLE OpinionTextoProcesado (
+    OTP_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    Texto_id INT UNSIGNED NOT NULL,
+    OpinionFU_id INT UNSIGNED NULL,
+    OpinionFE_id INT UNSIGNED NULL,
+    FOREIGN KEY (Texto_id) REFERENCES TextoProcesado(Texto_id) ON DELETE CASCADE,
+    FOREIGN KEY (OpinionFU_id) REFERENCES OpinionFuenteUsuario(OpinionFU_id) ON DELETE CASCADE,
+    FOREIGN KEY (OpinionFE_id) REFERENCES OpinionFuenteExterna(OpinionFE_id) ON DELETE CASCADE,
+    CHECK (
+      (OpinionFU_id IS NOT NULL AND OpinionFE_id IS NULL) OR
+      (OpinionFU_id IS NULL AND OpinionFE_id IS NOT NULL)
+    )
+);
+
+-- Tabla: Agrupacion
+-- 🔁 Se elimina si el TextoProcesado se elimina
+CREATE TABLE Agrupacion (
+    Agrupacion_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    Agrupacion_nombre VARCHAR(100),
+    Agrupacion_descripcion TEXT,
+    Agrupacion_asignacion_clusters JSON,
+    Agrupacion_interpretacion_ideologica JSON,
+    Agrupacion_embeddings_latentes JSON,
+    Agrupacion_metricas_clustering JSON,
+    Agrupacion_parametros_ejecucion JSON,
+    Texto_id INT UNSIGNED UNIQUE,
+    FOREIGN KEY (Texto_id) REFERENCES TextoProcesado(Texto_id) ON DELETE CASCADE
+);
+
+-- Tabla: HistorialClasificacion
+-- 🔁 Se elimina si la Agrupacion se elimina
+CREATE TABLE HistorialClasificacion (
+    HistorialC_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    HistorialC_clasificacion_id INT UNSIGNED,
+    HistorialC_agrupacion_id INT UNSIGNED,
+    HistorialC_fecha_creacion DATE,
+    HistorialC_favorito TINYINT(1) DEFAULT 0,
+    HistorialC_comentario TEXT,
+    FOREIGN KEY (HistorialC_agrupacion_id) REFERENCES Agrupacion(Agrupacion_id) ON DELETE CASCADE
+);
